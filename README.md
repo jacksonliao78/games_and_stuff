@@ -1,1 +1,1 @@
-# games_and_stuff
+# as the name suggests
