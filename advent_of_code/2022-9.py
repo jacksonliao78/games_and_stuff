@@ -44,7 +44,24 @@ def ans():
      #       dif.append(tail)
 
 def movetail(tail, head):
-    print(tail)
-    print(head)
+    if tail[0] == head[0]:
+        if tail[1] > head[1]:
+            return (tail[0], head[1]+1)
+        else:   return (tail[0], head[1]-1)
+    elif tail[1] == head[1]:
+        if tail[0] > head[0]:
+            return (head[0]+1, tail[1])
+        else:   return (head[0]-1, tail[1])
+    else:
+        if head[0] - tail[0] == 2:
+            return (head[0] - 1, head[1])
+        elif head[0] - tail[0] == -2:
+            return (head[0] + 1, head[1])
+        elif head[1] - tail[1] == 2:
+            return (head[0], head[1] - 1)
+        else: return (head[0], head[1] + 1)
 
-movetail((5, 0), (5, 2))
+
+samplehead = (4, 3)
+sampletail = (6, 2)
+print(movetail(sampletail, samplehead))
