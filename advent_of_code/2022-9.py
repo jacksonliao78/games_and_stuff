@@ -64,7 +64,6 @@ def ans():
         move = move.split(" ")
         head, tail, dif = switch(head, move[0], move[1], tail, dif)
     print(len(set(dif)))
-    print(count)
 
 ans() # -> 6745
 
