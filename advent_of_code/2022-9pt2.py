@@ -1,5 +1,4 @@
 
-import math
 
 with open('/Users/jliao/Code/games_and_stuff/advent_of_code/d9.in') as f:
     moves = f.read().split('\n')
