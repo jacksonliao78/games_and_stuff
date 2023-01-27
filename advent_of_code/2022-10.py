@@ -23,7 +23,7 @@ def ans():
             X += int(cmd[1])
     print(tot)
 
-ans()
+ans() #-> 13720
             
 
 
