@@ -58,28 +58,5 @@ def ans():
 
     show(scr)
 
-ans()
+ans() # -> FBURHZCH
 
-#can't go till 240 - has to be row by row D:
-
-
-def test():
-    b = screen()
-    X = 1
-    cycle = 0
-    moves = ['addx 15', 'addx -11', 'addx 6', 'addx -3', 'addx 5']
-    for move in moves:
-        if move.startswith("noop"):
-            if check(cycle, X) == True:
-                b = update(b, cycle)
-                cycle += 1
-        else:
-            move = move.split()
-            for _ in range(2):
-                if check(cycle, X) == True:
-                    b = update(b, cycle)
-                cycle += 1
-            X += int(move[1])
-    show(b)
-
-#test()
