@@ -1,15 +1,19 @@
 
+
 import heapq
 
 with open('/Users/jliao/Code/games_and_stuff/advent_of_code/d12.in') as f:
     grid = [list(row.strip()) for row in f.readlines()]
-    
+
+starts = []   
 for i in range(len(grid)):
     for j in range(len(grid[0])):
         if grid[i][j] == 'S':
-            star = (i, j)
+            starts.append((i, j))
         if grid[i][j] == 'E':
             en = (i, j)
+        if grid[i][j] == 'a':
+            starts.append((i, j))
 
 def height(r, c):
     point = grid[r][c]
@@ -46,5 +50,13 @@ def dijkstra(start, end):
             for rnew, cnew in neighbors(node[0], node[1]):
                 heapq.heappush(queue, (steps + 1, (rnew, cnew)))
 
-print(dijkstra(star, en))
+def ans():
+    lens = []
+    for start in starts:
+        a = (dijkstra(start, en))
+        if a is not None:
+            lens.append(a)
+    print(min(lens))
+
+ans()
 
