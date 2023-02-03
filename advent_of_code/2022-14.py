@@ -118,9 +118,6 @@ class Resevoir:
             else:
                 break
         
-    
-
-
 res = Resevoir(rocks)
 res.prepboard()
 res.createboard()
