@@ -27,7 +27,7 @@ class Resevoir:
         self.lines = hold
         self.deepest = max(yep)
         self.widestright = max(wid) - min(wid)
-        self.spout = (500 - min(wid), 0)
+        self.spout = (500 - min(wid) + 4, 0)
         hold2 = []
         for line in self.lines:
             hold3 = []
@@ -40,7 +40,7 @@ class Resevoir:
 
     def createboard(self):
         board = []
-        for i in range(self.deepest + 1):
+        for i in range(self.deepest + 3):
             row = []
             for j in range(self.widestright + 8):
                 row.append(".")
@@ -53,6 +53,7 @@ class Resevoir:
             for thing in row:
                 print(thing, end = "")
             print()
+        print(self.total)
         
     def makerocklines(self):
         for line in self.lines:
@@ -103,21 +104,19 @@ class Resevoir:
                 else:
                     return False
             else:
-                self.board[coords[0]][coords[1]] = 'o'
                 break
+        self.board[coords[0]][coords[1]] = 'o'
         return True
     
     def sand(self):
         #we want the y val first if this is a graph
+        print(self.widestleft, self.widestright)
+        print(self.spout)
         while  True:
-            if self.update((56, 0)) == True:
+            if self.update((0, 60)) == True:
                 self.total += 1
-                if self.total == 100:
-                    break
-                continue
             else:
                 break
-        print(self.total)
         
     
 
@@ -128,4 +127,3 @@ res.createboard()
 res.makerocklines()
 res.sand()
 res.showboard()
-
