@@ -11,6 +11,7 @@ class Resevoir:
         self.widestright = 0
         self.spout = (500, 0)
         self.board = []
+        self.total = 0
 
     def prepboard(self):
         hold = []
@@ -26,7 +27,7 @@ class Resevoir:
         self.lines = hold
         self.deepest = max(yep)
         self.widestright = max(wid) - min(wid)
-        self.spout = (500 - min(wid), self.deepest)
+        self.spout = (500 - min(wid), 0)
         hold2 = []
         for line in self.lines:
             hold3 = []
@@ -45,6 +46,7 @@ class Resevoir:
                 row.append(".")
             board.append(row)
         self.board = board
+        self.board[self.spout[1]][self.spout[0]] = "+"
 
     def showboard(self):
         for row in self.board:
@@ -74,13 +76,28 @@ class Resevoir:
             else:
                 for i in range(int(beg[0]), int(end[0]) + 1):
                     self.board[beg[1]][i] = '#'
-        
 
+    def checkpos(self, coords):
+        if coords[1] >= 178:
+            return False
+
+    def update(self, coords):
+    
+    def sand(self):
+        moveable = True
+        self.board[1][56] = 'o'
+        #we want the y val first if this is a graph
+        coords = (1, 56)
+        while moveable == True:
+            coords = self.update(coords)
+        
+    
 
 
 res = Resevoir(rocks)
 res.prepboard()
 res.createboard()
 res.makerocklines()
+res.sand()
 res.showboard()
 
