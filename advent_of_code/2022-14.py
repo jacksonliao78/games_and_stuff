@@ -40,7 +40,7 @@ class Resevoir:
 
     def createboard(self):
         board = []
-        for i in range(self.deepest + 3):
+        for i in range(self.deepest + 1):
             row = []
             for j in range(self.widestright + 8):
                 row.append(".")
@@ -77,19 +77,47 @@ class Resevoir:
                 for i in range(int(beg[0]), int(end[0]) + 1):
                     self.board[beg[1]][i] = '#'
 
-    def checkpos(self, coords):
-        if coords[1] >= 178:
+    def checkpos(self, cords):
+        if cords[0] >= 178:
             return False
+        return True
 
     def update(self, coords):
+        while True:
+            if self.board[coords[0] + 1][coords[1]] == ".":
+                coords = ((coords[0] + 1), coords[1])
+                if self.checkpos(coords) == True:
+                    continue
+                else:
+                    return False
+            elif self.board[coords[0] + 1][coords[1] - 1] == ".":
+                coords = ((coords[0] + 1), coords[1] - 1)
+                if self.checkpos(coords) == True:
+                    continue
+                else:
+                    return False
+            elif self.board[coords[0] + 1][coords[1] + 1] == ".":
+                coords = ((coords[0] + 1), coords[1] + 1)
+                if self.checkpos(coords) == True:
+                    continue
+                else:
+                    return False
+            else:
+                self.board[coords[0]][coords[1]] = 'o'
+                break
+        return True
     
     def sand(self):
-        moveable = True
-        self.board[1][56] = 'o'
         #we want the y val first if this is a graph
-        coords = (1, 56)
-        while moveable == True:
-            coords = self.update(coords)
+        while  True:
+            if self.update((56, 0)) == True:
+                self.total += 1
+                if self.total == 100:
+                    break
+                continue
+            else:
+                break
+        print(self.total)
         
     
 
