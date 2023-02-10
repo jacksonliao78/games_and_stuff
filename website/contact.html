@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Us</title>
+  </head>
+  <body>
+    <h1>Contact Us</h1>
+    <form>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <style>
+      form {
+        width: 50%;
+        margin: 0 auto;
+      }
+
+      label,
+      input,
+      textarea {
+        display: block;
+        margin-bottom: 1em;
+        width: 100%;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        padding: 0.5em;
+        font-size: 1em;
+      }
+
+      textarea {
+        padding: 0.5em;
+        font-size: 1em;
+        height: 10em;
+      }
+
+      button[type="submit"] {
+        padding: 0.5em 1em;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      // Get the form element
+      var form = document.querySelector("form");
+
+      // Listen for submit events on the form
+      form.addEventListener("submit", function(event) {
+        // Prevent the form from being submitted
+        event.preventDefault();
+
+        // Get the values of the name, email, and message fields
+        var name = document.querySelector("input[name='name']").value;
+        var email = document.querySelector("input[name='email']").value;
+        var message = document.querySelector("textarea[name='message']").value;
+
+        // Log the values to the console
+        console.log("Name: " + name);
+        console.log("Email: " + email);
+        console.log("Message: " + message);
+
+        // Clear the form fields
+        document.querySelector("input[name='name']").value = "";
+        document.querySelector("input[name='email']").value = "";
+        document.querySelector("textarea[name='message']").value = "";
+      });
+    </script>
+  </body>
+</html>
