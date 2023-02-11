@@ -74,10 +74,11 @@ body {
   }
   
   footer {
-    margin-top: 75em;
-    background-color: #333;
-    color: white;
-    padding: 1em;
+    margin-top: 25em;
+    background-color: rgb(15, 3, 64);
+    color: rgb(115, 100, 100);
+    padding: 0.5em;
     text-align: center;
+    font-family: 'Alegreya', serif; 
   }
   
