@@ -2,7 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right,#edc7b7, #eee2dc, #bab2b5)
+    background: linear-gradient(to right,#edc7b7, #eee2dc, #bab2b5);
+    background-image: url('anotherbackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
   
   header {
@@ -11,7 +15,7 @@ body {
     left: 0;
     right: 0;
     z-index: 999;
-    background-color: rgb(255, 255, 255);
+    background-color: #221628;
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
