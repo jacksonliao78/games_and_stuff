@@ -22,8 +22,4 @@ form.addEventListener("submit", function(event) {
   document.querySelector("textarea[name='message']").value = "";
 });
 
-const animateMe = document.querySelector('.left-section');
 
-animateMe.addEventListener('click', function() {
-  animateMe.classList.add('is-animated');
-});

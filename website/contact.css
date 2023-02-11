@@ -27,11 +27,12 @@ form {
     left: 0;
     right: 0;
     z-index: 999;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
-    padding: 1em;
+    padding: 0.5em;
     align-items: center;
+    border-bottom: 0.1em solid #000000;
   }
 
   .logohead {
@@ -40,6 +41,7 @@ form {
 
   header img {
     height: 4em;
+    width: 4em;
   }
 
   nav {
