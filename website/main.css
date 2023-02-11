@@ -26,10 +26,7 @@ body {
   header img {
     height: 4em;
     width: 4em;
-  }
-
-  .logohead {
-    margin-left: 3rem
+    margin-left: 3rem;
   }
   
   nav {
@@ -76,9 +73,9 @@ body {
   footer {
     margin-top: 25em;
     background-color: rgb(15, 3, 64);
-    color: rgb(115, 100, 100);
+    color: rgb(154, 142, 142);
     padding: 0.5em;
     text-align: center;
-    font-family: 'Alegreya', serif; 
+    font-family: 'Lato', serif; 
   }
   
