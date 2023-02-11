@@ -1,0 +1,24 @@
+form {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    text-align: center
+  }
+
+  label,
+  input,
+  textarea {
+    display: block;
+    margin-bottom: 1em;
+    width: 100%;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  body {
+    background-image: url('testimage.png');
+  }
