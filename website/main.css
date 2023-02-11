@@ -13,7 +13,11 @@ body {
   }
 
   header img {
-    height: 50px;
+    height: 4em;
+  }
+
+  .logohead {
+    margin-left: 3rem
   }
   
   nav {
@@ -34,12 +38,13 @@ body {
   }
   
   nav a {
-    color: #333;
+    color: #ac3b61;
     text-decoration: none;
+    
   }
   
   nav a:hover {
-    color: white;
+    color: #123c69;
   }
 
   h2 {
