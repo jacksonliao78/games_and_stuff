@@ -14,6 +14,10 @@ html, body {
   display: block;
 }
 
+.first background-image {
+  opacity: 0.7;
+}
+
 header {
   position: fixed;
   top: 0;
