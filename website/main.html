@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>super cool website</title>
-    <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
   </head>
   <body>
+    <section class = "first">
     <header>
       <a href="main.html">
         <img src="mainlogo.jpg" alt="Logo">
@@ -19,16 +22,31 @@
       </nav>
     </header>    
     <main>
-      <section>
-        <div class = "nice">
+      <section id = "top">
+        <div id = "nice">
           <p>
-            hello
+            welcome to my website
           </p>
         </div>
       </section>
     </main>
-    <footer>
-      <p>Copyright &copy; Jackson Liao-Cheng</p>
-    </footer>
+  </section>
+  <section id = "second">
+    <h2>this website was made in my freetime</h2>
+    <p>Hi</p>
+    <div class = "slider-container">
+      <button class="prev-button">Previous</button>
+        <div class="slider">
+          <img class = "active" src="anotherbackground.jpg">
+          <img src="background.jpg">
+          <img src="mainlogo.jpg">
+        </div>
+      <button class="next-button">Next</button>
+    </div>
+  </section>
+  <footer>
+    <p>Copyright &copy; Jackson Liao-Cheng</p>
+  </footer>
   </body>
+  <script type="text/javascript" src="main.js"></script>
 </html>

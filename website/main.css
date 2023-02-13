@@ -1,81 +1,152 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to right,#edc7b7, #eee2dc, #bab2b5);
-    background-image: url('anotherbackground.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  }
+  
+  .first {
+  font-family: Arial, sans-serif;
+  height: 100%;
+  background-image: url('wow.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: block;
   }
   
   header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background-color: #221628;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5em;
-    align-items: center;
-    border-bottom: 0.1em solid #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: #221628;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+  align-items: center;
+  border-bottom: 0.1em solid #000000;
   }
-
+  
   header img {
-    height: 4em;
-    width: 4em;
-    margin-left: 3rem;
+  height: 4em;
+  width: 4em;
+  margin-left: 3rem;
   }
   
   nav {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
   }
   
   nav ul {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   }
   
   nav li {
-    margin: 0 2em;
+  margin: 0 2em;
   }
   
   nav a {
-    color: #ac3b61;
-    text-decoration: none;
-    
+  color: #ac3b61;
+  text-decoration: none;
   }
   
   nav a:hover {
-    color: #123c69;
+  color: #123c69;
   }
-
+  
   h2 {
-    text-align: center;
+  text-align: center;
   }
-
-  .nice {
-    text-align: center;
-    font-size: 5em;
-    color: #000000;
+  
+  #nice {
+  text-align: left;
+  transition: all 0.5s ease-in-out;
+  font-size: 3.5em;
+  color: #000000;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  transition: all 1s ease-in-out;
   }
-
-  main section {
-    margin: 10em
+  
+  #nice:hover {
+  color: white;
+  transition: all 1s ease-in-out;
+  }
+  
+  #top {
+  margin: 5em;
+  }
+  
+  #second {
+  background-color: rgb(206, 204, 204);
+  padding: 3em;
+  
+  }
+  
+  #second h2, #second p {
+  text-align: center;
   }
   
   footer {
-    margin-top: 25em;
-    background-color: rgb(15, 3, 64);
-    color: rgb(154, 142, 142);
-    padding: 0.5em;
-    text-align: center;
-    font-family: 'Lato', serif; 
+  /margin-top: 10em;/
+  background-color: rgb(11, 2, 48);
+  color: rgb(173, 159, 159);
+  padding: 0.5em;
+  text-align: center;
+  font-family: 'Alegreya', serif;
   }
   
+  .slider {
+  position: relative;
+  width: 50%;
+  margin: auto;
+  height: 25em;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  }
+  
+  .slider img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  display: block;
+  transition: opacity 1s ease-in-out;
+  }
+  
+  .slider .active {
+  opacity: 1;
+  }
+  
+.prev-button, .next-button {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prev-btn {
+  position: absolute;
+  left: 0;
+}
+
+.next-btn {
+  position: absolute;
+  right: 0;
+}
