@@ -2,9 +2,9 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  }
-  
-  .first {
+}
+
+.first {
   font-family: Arial, sans-serif;
   height: 100%;
   background-image: url('wow.png');
@@ -12,9 +12,9 @@ html, body {
   background-size: cover;
   background-position: center;
   display: block;
-  }
-  
-  header {
+}
+
+header {
   position: fixed;
   top: 0;
   left: 0;
@@ -26,45 +26,45 @@ html, body {
   padding: 0.5em;
   align-items: center;
   border-bottom: 0.1em solid #000000;
-  }
-  
-  header img {
+}
+
+header img {
   height: 4em;
   width: 4em;
   margin-left: 3rem;
-  }
-  
-  nav {
+}
+
+nav {
   display: flex;
   flex-direction: row;
-  }
-  
-  nav ul {
+}
+
+nav ul {
   display: flex;
   flex-direction: row;
   list-style: none;
   margin: 0;
   padding: 0;
-  }
-  
-  nav li {
+}
+
+nav li {
   margin: 0 2em;
-  }
-  
-  nav a {
+}
+
+nav a {
   color: #ac3b61;
   text-decoration: none;
-  }
-  
-  nav a:hover {
+}
+
+nav a:hover {
   color: #123c69;
-  }
-  
-  h2 {
+}
+
+h2 {
   text-align: center;
-  }
-  
-  #nice {
+}
+
+#nice {
   text-align: left;
   transition: all 0.5s ease-in-out;
   font-size: 3.5em;
@@ -73,46 +73,44 @@ html, body {
   top: 30%;
   left: 20%;
   transition: all 1s ease-in-out;
-  }
-  
-  #nice:hover {
+}
+
+#nice:hover {
   color: white;
   transition: all 1s ease-in-out;
-  }
-  
-  #top {
+}
+
+#top {
   margin: 5em;
-  }
-  
-  #second {
+}
+
+#second {
   background-color: rgb(206, 204, 204);
   padding: 3em;
-  
-  }
-  
-  #second h2, #second p {
+}
+
+#second h2, #second p {
   text-align: center;
-  }
-  
-  footer {
-  /margin-top: 10em;/
+}
+
+footer {
   background-color: rgb(11, 2, 48);
   color: rgb(173, 159, 159);
   padding: 0.5em;
   text-align: center;
-  font-family: 'Alegreya', serif;
-  }
-  
-  .slider {
+  font-family: 'Alegreya', serif; 
+}
+
+.slider {
   position: relative;
   width: 50%;
   margin: auto;
   height: 25em;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
-  }
-  
-  .slider img {
+}
+
+.slider img {
   position: absolute;
   top: 0;
   left: 0;
@@ -121,12 +119,12 @@ html, body {
   opacity: 0;
   display: block;
   transition: opacity 1s ease-in-out;
-  }
-  
-  .slider .active {
+}
+
+.slider .active {
   opacity: 1;
-  }
-  
+}
+
 .prev-button, .next-button {
   background-color: transparent;
   border: none;
