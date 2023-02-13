@@ -1,0 +1,6 @@
+
+
+todo:
+- spiffy up the slider
+- have the background be lighter until you hover over the "welcome to my website" -> change text color to white
+- manually create a lighter background because opacity is messed up

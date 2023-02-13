@@ -7,15 +7,11 @@ html, body {
 .first {
   font-family: Arial, sans-serif;
   height: 150%;
-  background-image: url('wow.png');
+  background-image: url('wow2.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   display: block;
-}
-
-.first background-image {
-  opacity: 0.7;
 }
 
 header {
@@ -90,13 +86,32 @@ h2 {
   margin: 5em;
 }
 
-#second {
-  background-color: rgb(206, 204, 204);
-  padding: 3em;
+.second h2 {
+  text-align: center;
 }
 
-#second h2, #second p {
-  text-align: center;
+.second h2 a {
+  text-decoration: none;
+}
+
+.second {
+  background-color: rgb(230, 230, 230);
+  padding: 3em 2em 1.5em 2em; /* top right bottom left */
+}
+
+.midjourney {
+  transition: all 0.5s ease-in-out;
+}
+
+.midjourney:hover {
+  color: #8AAAE5;
+  transition: all 0.5s ease-in-out;
+  font-size: 1.5em;
+}
+
+#third {
+  background-color: white;
+  padding: 3em;
 }
 
 footer {
@@ -109,11 +124,10 @@ footer {
 
 .slider {
   position: relative;
-  width: 50%;
+  width: 45%;
   margin: auto;
   height: 25em;
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
 }
 
 .slider img {
@@ -124,7 +138,7 @@ footer {
   height: 100%;
   opacity: 0;
   display: block;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
 }
 
 .slider .active {
@@ -132,12 +146,10 @@ footer {
 }
 
 .prev-button, .next-button {
-  background-color: transparent;
-  border: none;
-  color: black;
-  font-size: 1em;
   cursor: pointer;
+  border: none;
 }
+
 
 .slider-container {
   display: flex;
@@ -145,12 +157,15 @@ footer {
   align-items: center;
 }
 
-.prev-btn {
-  position: absolute;
-  left: 0;
+.next-button::before {
+  content: url('rightarrow.jpg');
+  border: none;
+  margin-right: 20em;
+  background-color: white;
 }
 
-.next-btn {
-  position: absolute;
-  right: 0;
+.prev-button::before {
+  content: url('arrowleft2.jpg');
+  border: none;
+  margin-left: 20em;
 }
