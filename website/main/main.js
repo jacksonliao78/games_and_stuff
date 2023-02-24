@@ -17,3 +17,8 @@ nextButton.addEventListener("click", () => {
   currentImage = (currentImage + 1) % images.length;
   images[currentImage].classList.add("active");
 });
+
+document.querySelector("changetext").addEventListener("mouseover", function(){
+  document.querySelector(".first").style.backgroundImage = "url('wow.png')";
+});
+

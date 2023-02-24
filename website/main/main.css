@@ -8,7 +8,6 @@ html, body {
   font-family: Arial, sans-serif;
   height: 150%;
   background-image: url('wow2.png');
-  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   display: block;
@@ -148,6 +147,7 @@ footer {
 .prev-button, .next-button {
   cursor: pointer;
   border: none;
+  background: transparent;
 }
 
 
@@ -160,12 +160,13 @@ footer {
 .next-button::before {
   content: url('rightarrow.jpg');
   border: none;
-  margin-right: 20em;
+  margin-right: 24em;
   background-color: white;
+  color: white;
 }
 
 .prev-button::before {
   content: url('arrowleft2.jpg');
   border: none;
-  margin-left: 20em;
+  margin-left: 24em;
 }
