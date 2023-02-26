@@ -1,24 +1,19 @@
-const images = document.querySelectorAll(".slider img");
-let currentImage = 0;
-
-images[currentImage].classList.add("active");
-
-const prevButton = document.querySelector(".prev-button");
-const nextButton = document.querySelector(".next-button");
-
-prevButton.addEventListener("click", () => {
-  images[currentImage].classList.remove("active");
-  currentImage = (currentImage - 1 + images.length) % images.length;
-  images[currentImage].classList.add("active");
-});
-
-nextButton.addEventListener("click", () => {
-  images[currentImage].classList.remove("active");
-  currentImage = (currentImage + 1) % images.length;
-  images[currentImage].classList.add("active");
-});
-
-document.querySelector("changetext").addEventListener("mouseover", function(){
+document.querySelector(".changetext").addEventListener("mouseover", function(){
   document.querySelector(".first").style.backgroundImage = "url('wow.png')";
 });
 
+document.querySelector(".changetext").addEventListener("mouseleave", function(){
+  document.querySelector(".first").style.backgroundImage = "url('wow2.png')"
+});
+
+document.querySelector(".rounded-box").addEventListener("mouseover", function(){
+  document.querySelector(".boxp").style.color = "#8AAAE5"
+  document.querySelector(".works").style.color = "white"
+  document.querySelector(".boxp").style.fontSize = "2.5em"
+});
+
+document.querySelector(".rounded-box").addEventListener("mouseleave", function(){
+  document.querySelector(".boxp").style.color = "white"
+  document.querySelector(".works").style.color = "rgb(6, 142, 195)"
+  document.querySelector(".boxp").style.fontSize = "2em"
+});

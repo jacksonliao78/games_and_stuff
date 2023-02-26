@@ -11,6 +11,7 @@ html, body {
   background-size: cover;
   background-position: center;
   display: block;
+  transition: all 3s ease-in-out;
 }
 
 header {
@@ -87,19 +88,17 @@ h2 {
 
 .second h2 {
   text-align: center;
-}
-
-.second h2 a {
-  text-decoration: none;
+  color: rgb(19, 116, 200);
 }
 
 .second {
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(80, 25, 25);
   padding: 3em 2em 1.5em 2em; /* top right bottom left */
 }
 
 .midjourney {
   transition: all 0.5s ease-in-out;
+  color: white;
 }
 
 .midjourney:hover {
@@ -108,9 +107,110 @@ h2 {
   font-size: 1.5em;
 }
 
-#third {
-  background-color: white;
-  padding: 3em;
+.third {
+  padding: 7.5em 11em 5em 11em;
+  background: linear-gradient(-45deg, #151515, #090909, #181819, #191819);
+	background-size: 400% 400%;
+	-webkit-animation: gradient 15s ease infinite;
+	animation: gradient 15s ease infinite;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.boxp {
+  color: white;
+  font-size: 2em;
+  transition: all 0.5s ease-in-out;
+}
+
+.boxp .works {
+  color: rgb(6, 142, 195);
+}
+
+.boxp a {
+  text-decoration: none;
+}
+
+.rounded-box {
+  border-radius: 2em; 
+  padding: 4em;
+  box-shadow: 0 1em 1em rgba(50, 46, 46, 0.3);
+  width: 50%;
+  height: 10em;
+  background: linear-gradient(-45deg, #000000, #0e0e0e, #0d0d0d, #090909);
+	background-size: 400% 400%;
+	-webkit-animation: gradient 15s ease infinite;
+	animation: gradient 15s ease infinite;
+  animation-play-state: running;
+  transition: 1s all ease-in-out;
+  border: 1px solid rgb(55, 53, 53);
+  position: relative;
+}
+
+.rounded-box:hover {
+  animation-play-state: paused;
+  background: rgb(31, 31, 31);
+  transition: 1s all ease-in-out;
+}
+
+@-webkit-keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.popup-box {
+  position: absolute;
+  top: 25%;
+  right: -10em;
+  width: 10em;
+  height: 50%;
+  border-radius: 0em 2em 2em 0em;
+  background-color: rgb(1, 42, 51);
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  border: 1px solid rgb(55, 53, 53);
+}
+
+.rounded-box:hover .popup-box {
+  opacity: 1;
+}
+
+.popup-box p {
+  text-align: center;
+}
+
+.popup-box a {
+  text-decoration: none;
+  color: white;
+}
+
+.popup-box a:hover {
+  color: #8AAAE5;
 }
 
 footer {
@@ -119,54 +219,38 @@ footer {
   padding: 0.5em;
   text-align: center;
   font-family: 'Alegreya', serif; 
+  padding-top: 7em;
 }
 
-.slider {
-  position: relative;
-  width: 45%;
-  margin: auto;
-  height: 25em;
-  overflow: hidden;
-}
-
-.slider img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  display: block;
-  transition: opacity 1.5s ease-in-out;
-}
-
-.slider .active {
-  opacity: 1;
-}
-
-.prev-button, .next-button {
-  cursor: pointer;
-  border: none;
-  background: transparent;
-}
-
-
-.slider-container {
+.socials {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1em;
 }
 
-.next-button::before {
-  content: url('rightarrow.jpg');
-  border: none;
-  margin-right: 24em;
-  background-color: white;
-  color: white;
+.socials a {
+  display: inline-block;
+  width: 2.5em;
+  height: 2.5em;
+  margin: 0 1em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-indent: -9999px;
 }
 
-.prev-button::before {
-  content: url('arrowleft2.jpg');
-  border: none;
-  margin-left: 24em;
+.icon-instagram {
+  background-image: url('instagram.png');
+}
+
+.icon-github {
+  background-image: url('github.png');
+}
+
+.icon-twitter {
+  background-image: url("twitter.png");
+}
+
+.icon-spotify {
+  background-image: url("spotify.png")
 }
