@@ -11,7 +11,7 @@ html, body {
   background-size: cover;
   background-position: center;
   display: block;
-  transition: all 3s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 header {
@@ -140,7 +140,7 @@ h2 {
   box-shadow: 0 1em 1em rgba(50, 46, 46, 0.3);
   width: 50%;
   height: 10em;
-  background: linear-gradient(-45deg, #000000, #0e0e0e, #0d0d0d, #090909);
+  background: linear-gradient(-45deg, #000000, #0e0e0e, #060606, #141414);
 	background-size: 400% 400%;
 	-webkit-animation: gradient 15s ease infinite;
 	animation: gradient 15s ease infinite;
@@ -187,13 +187,13 @@ h2 {
   width: 10em;
   height: 50%;
   border-radius: 0em 2em 2em 0em;
-  background-color: rgb(1, 42, 51);
-  justify-content: center;
+  background-color: rgb(28, 92, 106);
   align-items: center;
   color: #fff;
   transition: all 0.5s ease-in-out;
   opacity: 0;
   border: 1px solid rgb(55, 53, 53);
+  display: flex;
 }
 
 .rounded-box:hover .popup-box {
@@ -201,38 +201,76 @@ h2 {
 }
 
 .popup-box p {
-  text-align: center;
+  margin-left: 1em;
 }
 
 .popup-box a {
   text-decoration: none;
   color: white;
+  transition: 0.5s all ease-in-out;
 }
 
 .popup-box a:hover {
   color: #8AAAE5;
+  transition: 0.5s all ease-in-out;
+}
+
+.lists {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 45em;
+}
+
+.lists ul {
+  margin-top: -1.5em;
+}
+
+.lists ul li {
+  margin-top: 0.5em;
+}
+
+.list-title {
+  color: white;
+  margin-bottom: 1.5em;
+}
+
+.dafoot {
+  display: flex;
+}
+
+.logo {
+  width: 5em;
+  height: 5em;
+  margin-bottom: 3em;
+  border-radius: 5em;
+  margin-left: 3em;
+}
+
+.foot {
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
   background-color: rgb(11, 2, 48);
   color: rgb(173, 159, 159);
   padding: 0.5em;
-  text-align: center;
   font-family: 'Alegreya', serif; 
-  padding-top: 7em;
+  padding-top: 6em;
+  padding-left: 7em;
 }
 
 .socials {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1em;
+  padding-left: 47em;
 }
 
 .socials a {
   display: inline-block;
-  width: 2.5em;
-  height: 2.5em;
+  width: 2em;
+  height: 2em;
   margin: 0 1em;
   background-repeat: no-repeat;
   background-size: contain;
