@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Shantell Sans';
+  src: url('Shantell_Sans/static/ShantellSans-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('Quicksand/static/Quicksand-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -218,7 +232,7 @@ h2 {
 .lists {
   display: flex;
   justify-content: space-between;
-  padding-right: 45em;
+  padding-right: 30em;
 }
 
 .lists ul {
@@ -229,9 +243,25 @@ h2 {
   margin-top: 0.5em;
 }
 
+.list-item {
+  font-family: 'Shantell Sans', sans-serif;
+}
+
+.lists a {
+  text-decoration: none;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+.lists a:hover {
+  color: #8AAAE5;
+  transition: all 0.5s ease-in-out;
+}
+
 .list-title {
   color: white;
   margin-bottom: 1.5em;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .dafoot {
