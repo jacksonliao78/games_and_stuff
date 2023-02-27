@@ -232,11 +232,11 @@ h2 {
 .lists {
   display: flex;
   justify-content: space-between;
-  padding-right: 30em;
+  padding-right: 14em;
 }
 
 .lists ul {
-  margin-top: -1.5em;
+  margin-top: -3em;
 }
 
 .lists ul li {
@@ -259,9 +259,15 @@ h2 {
 }
 
 .list-title {
-  color: white;
+  color: rgba(188, 182, 182, 0.812);
   margin-bottom: 1.5em;
   font-family: 'Quicksand', sans-serif;
+}
+
+.socialheader {
+  margin-right: -1.5em;
+  color:rgb(12, 170, 175);
+  margin-top: 0.25em;
 }
 
 .dafoot {
