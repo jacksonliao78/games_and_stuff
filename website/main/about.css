@@ -12,10 +12,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Zilla Slab';
+  src: url('Zilla_Slab/ZillaSlab-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: rgba(41, 1, 35, 0.534);
   }
   
   header {
@@ -24,7 +32,7 @@ body {
     left: 0;
     right: 0;
     z-index: 999;
-    background-color: rgb(82, 4, 113);
+    background-color: rgb(59, 5, 80);
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
@@ -50,6 +58,7 @@ body {
   header img {
     height: 4em;
     width: 4em;
+    border-radius: 5em;
   }
 
   nav {
@@ -78,6 +87,20 @@ body {
   nav a:hover {
     color: #123c69;
   }
+
+  .title {
+    margin-left: 20%;
+    margin-top: 10em; 
+    font-size: 150%;
+    font-family: 'Shantell Sans', sans-serif;
+  }
+
+  .aboutmain {
+    font-family: 'Zilla Slab', sans-serif;
+    font-size: 125%;
+    margin-left: 10em;
+  }
+
 
   .lists {
     display: flex;
