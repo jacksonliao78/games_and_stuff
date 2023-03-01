@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color:rgb(251, 211, 161);
 }
 
 form {
@@ -27,7 +28,7 @@ form {
     left: 0;
     right: 0;
     z-index: 999;
-    background-color: rgb(255, 255, 255);
+    background-color: #f6834f;
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
@@ -42,6 +43,7 @@ form {
   header img {
     height: 4em;
     width: 4em;
+    border-radius: 5em;
   }
 
   nav {
@@ -62,11 +64,132 @@ form {
   }
   
   nav a {
-    color: #ac3b61;
+    color: #ffc79d;
     text-decoration: none;
     
   }
   
   nav a:hover {
     color: #123c69;
+  }
+
+  .title {
+    margin-top: 10em;
+    padding-bottom: 2em;
+    font-size: 125%;
+  }
+  .holder {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 13em;
+    padding-right: 13em;
+    padding-bottom: 4em;
+  }
+  .list-title2 {
+    color:cornflowerblue;
+    margin-bottom: 1em;
+  }
+  .contactinfo {
+    color: white;
+    line-height: 150%;
+    font-size: 150%;
+  }
+  .lists {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 14em;
+  }
+  
+  .lists ul {
+    margin-top: -3em;
+  }
+  
+  .lists ul li {
+    margin-top: 0.5em;
+  }
+  
+  .list-item {
+    font-family: 'Shantell Sans', sans-serif;
+  }
+  
+  .lists a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .lists a:hover {
+    color: #8AAAE5;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .list-title {
+    color: rgba(188, 182, 182, 0.812);
+    margin-bottom: 1.5em;
+    font-family: 'Quicksand', sans-serif;
+  }
+  
+  .socialheader {
+    margin-right: -1.5em;
+    color:rgb(12, 170, 175);
+    margin-top: 0.25em;
+  }
+  
+  .dafoot {
+    display: flex;
+  }
+  
+  .logo {
+    width: 5em;
+    height: 5em;
+    margin-bottom: 3em;
+    border-radius: 5em;
+    margin-left: 3em;
+  }
+  
+  .foot {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  footer {
+    background-color: rgb(11, 2, 48);
+    color: rgb(173, 159, 159);
+    padding: 0.5em;
+    font-family: 'Alegreya', serif; 
+    padding-top: 6em;
+    padding-left: 7em;
+  }
+  
+  .socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 47em;
+  }
+  
+  .socials a {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    margin: 0 1em;
+    background-repeat: no-repeat;
+    background-size: contain;
+    text-indent: -9999px;
+  }
+  
+  .icon-instagram {
+    background-image: url('instagram.png');
+  }
+  
+  .icon-github {
+    background-image: url('github.png');
+  }
+  
+  .icon-twitter {
+    background-image: url("twitter.png");
+  }
+  
+  .icon-spotify {
+    background-image: url("spotify.png")
   }
