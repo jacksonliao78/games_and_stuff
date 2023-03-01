@@ -40,14 +40,11 @@ body {
     border-bottom: 0.1em solid #000000;
   }
 
-  section {
-    padding: 20px;
-  }
   footer {
     background-color: #333;
     color: #fff;
     padding: 1em;
-    margin-top: 50em;
+    margin-top: 20em;
     text-align: center;
   }
 
@@ -94,7 +91,6 @@ body {
     font-size: 150%;
     font-family: 'Shantell Sans', sans-serif;
   }
-
   .aboutmain {
     font-family: 'Zilla Slab', sans-serif;
     font-size: 125%;
@@ -102,21 +98,69 @@ body {
     margin-right: 10em;
     line-height: 175%;
   }
-
   .aboutnichols {
     color: #02583c;
+    transition: all 0.5s ease-in-out;
   }
-  
+  .aboutnichols:hover {
+    color: #019e6a;
+    transition: all 0.5s ease-in-out;
+  }
+
   .abouthere {
     color: white;
     transition: all 0.5s ease-in-out;
   }
-
   .abouthere:hover {
     color:aquamarine;
     transition: all 0.5s ease-in-out;
   }
-
+  .aboutnaps {
+    color: rgb(238, 88, 88);
+    transition: all 0.5s ease-in-out;
+  }
+  .aboutnaps:hover {
+    color:antiquewhite;
+    transition: all 0.5s ease-in-out;
+  }
+  .aboutorange {
+    color: orange
+  }
+  .aboutblue {
+    animation-name: color-animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+  }
+  .aboutblue:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes color-animation {
+    0% { color: rgb(83, 124, 237); }
+    20% { color: rgb(0, 136, 255); }
+    40% { color: rgb(3, 108, 156); }
+    60% { color: rgb(8, 102, 137); }
+    80% { color: rgb(30, 0, 128); }
+    100% { color: rgb(83, 124, 237); }
+  }
+  .aboutweird {
+    color: purple;
+    transition: all 0.5s ease-in-out
+  }
+  .aboutweird:hover {
+    color:darkgoldenrod;
+    transition: all 0.5s ease-in-out
+  }
+  .aboutthis {
+    color: rgba(221, 239, 101, 0.679);
+    transition: all 0.5s ease-in-out
+  }
+  .aboutthis:hover {
+    color: rgb(158, 9, 9);
+    transition: all 0.5s ease-in-out
+  }
+  
   .aboutmain a{
     text-decoration: none;
   }
