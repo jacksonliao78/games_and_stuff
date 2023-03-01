@@ -44,7 +44,7 @@ body {
     background-color: #333;
     color: #fff;
     padding: 1em;
-    margin-top: 20em;
+    margin-top: 10em;
     text-align: center;
   }
 
@@ -87,7 +87,7 @@ body {
 
   .title {
     margin-left: 20%;
-    margin-top: 10em; 
+    margin-top: 8em; 
     font-size: 150%;
     font-family: 'Shantell Sans', sans-serif;
   }
