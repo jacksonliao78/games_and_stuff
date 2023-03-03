@@ -18,12 +18,19 @@
     font-weight: normal;
     font-style: normal;
   }
+
+  @font-face {
+    font-family: 'Crimson Pro';
+    src: url('Crimson_Pro/static/CrimsonPro-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   
   body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: rgba(114, 2, 151, 0.674);
+      background-color: rgba(206, 104, 9, 0.674);
     }
     
     header {
@@ -32,7 +39,7 @@
       left: 0;
       right: 0;
       z-index: 999;
-      background-color: rgb(59, 5, 80);
+      background-color: #13a8a8;
       display: flex;
       justify-content: space-between;
       padding: 0.5em;
@@ -87,12 +94,26 @@
   
   /* main starts here */
 
-  .school {
-
+  .title {
+    margin-left: 5em;
+    margin-bottom: -1em;
+    font-family: 'Crimson Pro', sans-serif;
+    font-size: 250%
   }
-
-  .other {
-    
+  .coursework {
+    padding-top: 10em;
+  }
+  .experiences {
+    color: red;
+  }
+  .courselists{
+    margin-top: 5em;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 7em;
+    margin-right: 12em;
+    font-size: 125%;
+    line-height: 200%;
   }
 
   /* main ends here */
@@ -195,4 +216,7 @@
     
     .icon-spotify {
       background-image: url("spotify.png")
+    }
+    .active {
+        border-bottom: 1px solid rgb(255, 85, 0);
     }
