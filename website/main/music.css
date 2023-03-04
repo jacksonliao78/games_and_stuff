@@ -1,35 +1,30 @@
 @font-face {
-  font-family: 'Shantell Sans';
-  src: url('Shantell_Sans/static/ShantellSans-Light.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Quicksand';
-  src: url('Quicksand/static/Quicksand-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Zilla Slab';
-  src: url('Zilla_Slab/ZillaSlab-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+    font-family: 'Shantell Sans';
+    src: url('Shantell_Sans/static/ShantellSans-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Quicksand';
+    src: url('Quicksand/static/Quicksand-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Zilla Slab';
+    src: url('Zilla_Slab/ZillaSlab-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color:rgb(251, 211, 161);
+  background-color:rgb(26, 25, 24); 
 }
-
-form {
-    width: 50%;
-    margin: 0 auto;
-  }
 
   h1 {
     text-align: center
@@ -49,7 +44,7 @@ form {
     left: 0;
     right: 0;
     z-index: 999;
-    background-color: #f6834f;
+    background-color: #050505;
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
@@ -85,36 +80,66 @@ form {
   }
   
   nav a {
-    color: #ffc79d;
+    color: #f5dac5;
     text-decoration: none;
     
   }
   
   nav a:hover {
-    color: #123c69;
+    color: #2884e7;
   }
 
-  .title {
-    margin-top: 10em;
-    padding-bottom: 2em;
-    font-size: 125%;
-  }
-  .holder {
+/* main */
+#blur {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    backdrop-filter: blur(125px)
+}
+#blob {
+    background-color: white;
+    height: 15em;
+    aspect-ratio: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: linear-gradient(
+        to right,
+        aquamarine,
+        rgb(106, 42, 234),
+        rgb(244, 137, 15)
+    );
+    animation: rotate 20s infinite;
+    z-index: -999;
+}
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    50% {
+        scale: 1 1.5;
+    }
+    to {
+        rotate: 360deg;
+    }
+}
+
+.holder {
+    padding-top: 10em;
+    padding-bottom: 20em;
     display: flex;
-    justify-content: space-between;
-    padding-left: 13em;
-    padding-right: 13em;
-    padding-bottom: 4em;
-  }
-  .list-title2 {
-    color:cornflowerblue;
-    margin-bottom: 1em;
-  }
-  .contactinfo {
+
+}
+.holder h1 {
     color: white;
-    line-height: 150%;
-    font-size: 150%;
-  }
+}
+
+
+
+/* main ends */
   .lists {
     display: flex;
     justify-content: space-between;
@@ -181,7 +206,7 @@ form {
     font-family: 'Alegreya', serif; 
     padding-top: 6em;
     padding-left: 7em;
-    
+    margin-top: 8em;
   }
   
   .socials {

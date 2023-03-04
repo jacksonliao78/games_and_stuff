@@ -209,6 +209,7 @@ body {
   
   .dafoot {
     display: flex;
+    justify-content: space-between;
   }
   
   .logo {
@@ -231,13 +232,14 @@ body {
     font-family: 'Alegreya', serif; 
     padding-top: 6em;
     padding-left: 7em;
+    
   }
   
   .socials {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 47em;
+    margin-right: 7em;
   }
   
   .socials a {
@@ -264,7 +266,4 @@ body {
   
   .icon-spotify {
     background-image: url("spotify.png")
-  }
-  .active {
-    border-bottom: 1px solid rgb(255, 85, 0);
   }

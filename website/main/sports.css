@@ -104,105 +104,104 @@ body {
 
 /* footer stuff */
 
-  .lists {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 14em;
-  }
+.lists {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 14em;
+}
+
+.lists ul {
+  margin-top: -3em;
+}
+
+.lists ul li {
+  margin-top: 0.5em;
+}
+
+.list-item {
+  font-family: 'Shantell Sans', sans-serif;
+}
+
+.lists a {
+  text-decoration: none;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+.lists a:hover {
+  color: #8AAAE5;
+  transition: all 0.5s ease-in-out;
+}
+
+.list-title {
+  color: rgba(188, 182, 182, 0.812);
+  margin-bottom: 1.5em;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.socialheader {
+  margin-right: -1.5em;
+  color:rgb(12, 170, 175);
+  margin-top: 0.25em;
+}
+
+.dafoot {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 5em;
+  height: 5em;
+  margin-bottom: 3em;
+  border-radius: 5em;
+  margin-left: 3em;
+}
+
+.foot {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background-color: rgb(11, 2, 48);
+  color: rgb(173, 159, 159);
+  padding: 0.5em;
+  font-family: 'Alegreya', serif; 
+  padding-top: 6em;
+  padding-left: 7em;
   
-  .lists ul {
-    margin-top: -3em;
-  }
-  
-  .lists ul li {
-    margin-top: 0.5em;
-  }
-  
-  .list-item {
-    font-family: 'Shantell Sans', sans-serif;
-  }
-  
-  .lists a {
-    text-decoration: none;
-    color: white;
-    transition: all 0.5s ease-in-out;
-  }
-  
-  .lists a:hover {
-    color: #8AAAE5;
-    transition: all 0.5s ease-in-out;
-  }
-  
-  .list-title {
-    color: rgba(188, 182, 182, 0.812);
-    margin-bottom: 1.5em;
-    font-family: 'Quicksand', sans-serif;
-  }
-  
-  .socialheader {
-    margin-right: -1.5em;
-    color:rgb(12, 170, 175);
-    margin-top: 0.25em;
-  }
-  
-  .dafoot {
-    display: flex;
-  }
-  
-  .logo {
-    width: 5em;
-    height: 5em;
-    margin-bottom: 3em;
-    border-radius: 5em;
-    margin-left: 3em;
-  }
-  
-  .foot {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  footer {
-    background-color: rgb(11, 2, 48);
-    color: rgb(173, 159, 159);
-    padding: 0.5em;
-    font-family: 'Alegreya', serif; 
-    padding-top: 6em;
-    padding-left: 7em;
-  }
-  
-  .socials {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 47em;
-  }
-  
-  .socials a {
-    display: inline-block;
-    width: 2em;
-    height: 2em;
-    margin: 0 1em;
-    background-repeat: no-repeat;
-    background-size: contain;
-    text-indent: -9999px;
-  }
-  
-  .icon-instagram {
-    background-image: url('instagram.png');
-  }
-  
-  .icon-github {
-    background-image: url('github.png');
-  }
-  
-  .icon-twitter {
-    background-image: url("twitter.png");
-  }
-  
-  .icon-spotify {
-    background-image: url("spotify.png")
-  }
-  .active {
-    border-bottom: 1px solid rgb(255, 85, 0);
-  }
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 7em;
+}
+
+.socials a {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  margin: 0 1em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-indent: -9999px;
+}
+
+.icon-instagram {
+  background-image: url('instagram.png');
+}
+
+.icon-github {
+  background-image: url('github.png');
+}
+
+.icon-twitter {
+  background-image: url("twitter.png");
+}
+
+.icon-spotify {
+  background-image: url("spotify.png")
+}
