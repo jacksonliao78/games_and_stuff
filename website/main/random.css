@@ -1,0 +1,153 @@
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('Shantell_Sans/static/ShantellSans-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Quicksand';
+    src: url('Quicksand/static/Quicksand-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Zilla Slab';
+    src: url('Zilla_Slab/ZillaSlab-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color:rgb(26, 25, 24); 
+  height: 100vh;
+  overflow: hidden;
+}
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: #050505;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+    align-items: center;
+    border-bottom: 0.1em solid #000000;
+  }
+
+  .logohead {
+    margin-left: 3rem
+  }
+
+  header img {
+    height: 4em;
+    width: 4em;
+    border-radius: 5em;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    margin: 0 2em;
+  }
+  
+  nav a {
+    color: #f5dac5;
+    text-decoration: none;
+    
+  }
+  
+  nav a:hover {
+    color: #2884e7;
+  }
+
+/* main */
+#blur {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    backdrop-filter: blur(125px);
+    overflow: hidden;
+}
+#blob {
+    background-color: white;
+    height: 12em;
+    aspect-ratio: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: linear-gradient(
+        to right,
+        aquamarine,
+        rgb(106, 42, 234),
+        rgb(244, 137, 15)
+    );
+    animation: rotate 20s infinite;
+    z-index: -999;
+    overflow: hidden;
+}
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    50% {
+        scale: 1 1.5;
+    }
+    to {
+        rotate: 360deg;
+    }
+}
+
+.words h1 {
+  color: white;
+  font-size: 150%;
+  left: 50%;
+  top: 50%;
+  z-index: 999;
+}
+
+
+#text-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+  color: white;
+  font-family: 'Zilla Slab', sans-serif;
+}
+
+#text-box h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+#text-box p {
+  font-size: 1.5em;
+}
+
+
+
+/* main ends */
