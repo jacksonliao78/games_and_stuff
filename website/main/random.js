@@ -35,5 +35,33 @@ document.querySelector("h1").onmouseover = event => {
     }
     
     iteration += 1 / 3;
-  }, 30);
+  }, 20);
 }
+
+const target = document.getElementById("target");
+const textchange = document.getElementById("textchange");
+const body = document.body;
+const target2 = document.getElementById("text-box2");
+const blurb = document.getElementById("blur");
+const header = document.querySelector("header");
+
+target.addEventListener("mouseover", () => {
+  textchange.style.color = '#FFFFF7';
+  body.style.background = 'black';
+});
+
+target.addEventListener("mouseleave", () => {
+  textchange.style.color = 'transparent';
+  body.style.background = 'black';
+  header.classList.add('visible');
+});
+
+target2.addEventListener("mouseover", () => {
+  blob.style.height = '8em';
+  blurb.style.backdropFilter = 'blur(100px)';
+});
+
+target2.addEventListener("mouseleave", () => {
+  blob.style.height = '12em';
+  blurb.style.backdropFilter = 'blur(125px)';
+});
