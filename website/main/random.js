@@ -58,10 +58,12 @@ target.addEventListener("mouseleave", () => {
 
 target2.addEventListener("mouseover", () => {
   blob.style.height = '8em';
-  blurb.style.backdropFilter = 'blur(100px)';
+  blurb.style.backdropFilter = 'blur(50px)';
+  blob.style.background = 'white';
 });
 
 target2.addEventListener("mouseleave", () => {
   blob.style.height = '12em';
   blurb.style.backdropFilter = 'blur(125px)';
+  blob.style.background = 'linear-gradient(to right,rgb(103, 228, 186),rgb(158, 123, 228),rgb(233, 184, 127))';
 });
