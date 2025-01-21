@@ -1,0 +1,17 @@
+
+when building bot-
+
+board evaluation -> could implement lookahead? there is usually a 5 block queue in modern tetris, but if not just have the one in hold
+-> does it create holes/peaks/tall pillars/etc to evaluate moves. 
+
+
+python -m venv venv
+python -m pip install pygame
+
+
+#todo
+implement soft drop speed 
+implement gravity change
+implement scoring/combos
+implement timer - 2 min
+redo lock delay - 0.5s that resets with rotation/move, max 15 rotations on a level
