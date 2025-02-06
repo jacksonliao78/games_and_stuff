@@ -1,6 +1,11 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pygame
-from constants import GRID_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLUE  # Import constants
-from pieces import Piece
+from game.constants import GRID_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLUE  # Import constants
+from game.pieces import Piece
 
 
 
@@ -25,6 +30,8 @@ class Board:
 
         self.lines = 0
         self.combo = 0
+        
+    
 
     def is_valid_position(self, piece):
 
@@ -90,31 +97,27 @@ class Board:
 
     
     def draw_score(self, surface, offset_x, offset_y):
-        font = pygame.font.Font(None, 36)  # You can change the font size or font file
+        font = pygame.font.Font(None, 36)  
 
-    # Define text content
         score_text = f"Score: {self.score}"
         level_text = f"Level: {self.level}"
         lines_text = f"Lines: {self.lines}"
         combo_text = f"Combo: {self.combo}" if self.combo > 0 else ""
 
-    # Render text
         score_surface = font.render(score_text, True, WHITE)
         level_surface = font.render(level_text, True, WHITE)
         lines_surface = font.render(lines_text, True, WHITE)
         combo_surface = font.render(combo_text, True, WHITE)
 
-    # Calculate positions for each text (stacked vertically)
         score_rect = score_surface.get_rect(topleft=(offset_x, offset_y))
         level_rect = level_surface.get_rect(topleft=(offset_x, offset_y + 40))
         lines_rect = lines_surface.get_rect(topleft=(offset_x, offset_y + 80))
         combo_rect = combo_surface.get_rect(topleft=(offset_x, offset_y + 120))
 
-    # Draw text on the surface
         surface.blit(score_surface, score_rect)
         surface.blit(level_surface, level_rect)
         surface.blit(lines_surface, lines_rect)
-        if combo_text:  # Only draw combo if it's active
+        if combo_text:  
             surface.blit(combo_surface, combo_rect)
 
 

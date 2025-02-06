@@ -1,5 +1,10 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pygame
-from constants import GRID_SIZE, WHITE, RED  # Import constants
+from game.constants import GRID_SIZE, WHITE, RED  # Import constants
 
 
 
@@ -24,6 +29,8 @@ class Piece:
 
     COLORS = [ ( 192, 255, 255 ), ( 255, 255, 0 ), ( 255, 192, 255 ), ( 0, 128, 0 ), (255, 0, 0), ( 0, 0, 255 ),  ( 255, 128, 0 )]
 
+    ROTATIONS = []
+
     def __init__(self, x, y, type, offset):
         self.x = x
         self.y = y
@@ -34,12 +41,29 @@ class Piece:
         self.moving = True
         self.offset = offset
 
-    def can_move( self, board ):
+    def can_move( self, board):
         self.y += 1
-        if board.is_valid_position(self):
+        if board.is_valid_position( self ):
             self.y -= 1
             return True
         self.y -= 1
+        return False
+
+    def can_move_2( self, board, position ):
+        old_rotation = self.rotation
+        old_x = self.x
+        old_y = self.y
+        self.rotation = position[2]
+        self.x = position[0]
+        self.y = position[1]
+        if self.can_move( board ):
+            self.rotation = old_rotation
+            self.x = old_x
+            self.y = old_y
+            return True
+        self.rotation = old_rotation
+        self.x = old_x
+        self.y = old_y
         return False
 
     def move(self, dx, dy, board):
@@ -52,12 +76,15 @@ class Piece:
                 return False
             return True
         return False
+    
+    
 
     def rotate(self, num, board):
         if(self.moving):
             self.rotation = (self.rotation + num) % len(Piece.PIECES[self.type])
             self.piece = Piece.PIECES[self.type][self.rotation]
 
+            #tofix
             if not board.is_valid_position(self):
                 if self.type == 0:
                     self.y -= 3
@@ -90,6 +117,24 @@ class Piece:
 
     def is_moving(self, board):
         return self.moving and board.is_valid_position(self)
+    
+    #lowkey same as can_move but for ease of use have this
+    def check_pos( self, board, x, y, rotation ):
+        old_rotation = self.rotation
+        old_x = self.x
+        old_y = self.y        
+        self.rotation = rotation
+        self.x = x
+        self.y = y
+        if board.is_valid_position( self ):
+            self.x = old_x
+            self.y = old_y
+            self.rotation = old_rotation
+            return True
+        self.x = old_x
+        self.y = old_y
+        self.rotation = old_rotation
+        return False        
     
     def get_lowest(self, board):
         pass

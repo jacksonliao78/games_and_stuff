@@ -1,3 +1,8 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 GRID_SIZE = 30  
 SCREEN_WIDTH = 300 
 SCREEN_HEIGHT = 600  
