@@ -22,6 +22,7 @@ class Board:
         self.width = width
         self.height = height
         self.grid = [[0 for _ in range(width)] for _ in range(height)]
+        self.color_grid = [[0 for _ in range(width)] for _ in range(height)]
 
         self.score = 0
 
@@ -40,7 +41,7 @@ class Board:
                 if block:
                     x = piece.x + col_idx
                     y = piece.y + row_idx
-                    if x < 0 or x >= self.width or y >= self.height or self.grid[y][x]:
+                    if x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] != 0:
                         return False
         return True
 
@@ -50,7 +51,8 @@ class Board:
                 if block:
                     x = piece.x + col_idx
                     y = piece.y + row_idx
-                    self.grid[y][x] = (1, piece.color)
+                    self.grid[y][x] = 1
+                    self.color_grid[y][x] = (1, piece.color)
         self.gravity_frame = 0
 
     def clear_lines(self):
@@ -77,7 +79,7 @@ class Board:
         self.grid = new_grid
 
     def draw(self, surface, offset):
-        for y, row in enumerate(self.grid):
+        for y, row in enumerate(self.color_grid):
             for x, block in enumerate(row):
                 if block:
                     rect = pygame.Rect(

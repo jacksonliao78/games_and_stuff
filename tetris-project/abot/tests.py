@@ -67,23 +67,34 @@ def test_positions():
     board.grid[17][4] = 1
     board.grid[16][5] = 1
 
+
+
 def test_bfs():
     """Tests BFS-based reachable positions."""
     bot = Bot(2)
     board = Board(10, 20)
 
     # Create obstacles
-    board.grid[18][4] = 1
-    board.grid[17][4] = 1
-    board.grid[16][5] = 1
+    board.grid[18][4] = 2
+    board.grid[17][4] = 2
+    board.grid[16][5] = 2
+
+    
 
     #x-y 4,18 4,17, 5,16
+    piece = Piece( 5, 0, 0, 0)
 
+    print(bot.get_positions(piece, board))
     # Place an "I" piece at the top
-    for i in range(6):
+    for i in range(1):
         piece = Piece( 5, 0, i, 0)
-        for pos in bot.can_access( piece, board ):
-            print(pos)
+        print("skibidi bruh")
+        for pos in sorted(bot.can_access( piece, board )):
+            
+            bot.place_piece( piece, board, pos )
+            bot.print_board(board)
+            bot.remove_piece( piece, board, pos )
+            
         print("-" * 30)
 
 

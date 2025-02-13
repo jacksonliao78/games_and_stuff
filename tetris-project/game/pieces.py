@@ -36,8 +36,8 @@ class Piece:
         self.y = y
         self.type = type
         self.color = Piece.COLORS[type]
-        self.piece = Piece.PIECES[type][0]
         self.rotation = 0
+        self.piece = Piece.PIECES[type][self.rotation]
         self.moving = True
         self.offset = offset
 
@@ -126,7 +126,7 @@ class Piece:
         self.rotation = rotation
         self.x = x
         self.y = y
-        if board.is_valid_position( self ):
+        if board.is_valid_position(self) and not self.can_move(board): #add second requirement for peice to stop
             self.x = old_x
             self.y = old_y
             self.rotation = old_rotation
@@ -138,3 +138,5 @@ class Piece:
     
     def get_lowest(self, board):
         pass
+
+    

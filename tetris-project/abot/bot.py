@@ -19,6 +19,14 @@ class Bot:
 
     def __init__(self, speed_cap):
         self.speed_cap = speed_cap
+        self.weights = {
+            "aggregate_height": -0.5,
+            "holes": -1.0,
+            "bumpiness": -0.4,
+            "line_clears": 1.5,
+            "well_depth": 0.8,  
+            "blocked_well": -2.0,  
+        }
 
 
     """ if avg height is above 15, call downstack, else call upstack"""
@@ -99,10 +107,22 @@ class Bot:
 
         return total
 
-    def holes( self, board: Board ):
-        pass
+    def open_well( self, board ):
+        well_open = all(board.grid[row][9] == 0 for row in range(20))
+        return 100 if well_open else -100
+
+    def get_total_holes( self, board: Board ):
+        total = 0
+
+        for i in range(board.width):
+            for j in range(board.height - 1, 0, -1):
+                if( board.grid[j + 1][i] == 1 and board.grid[j + 1][i] == 0):
+                    total += 1
+
+        return total
 
     def eval_move(self, piece: Piece, board: Board):
+
         val = 0
         pass
 
@@ -112,9 +132,7 @@ class Bot:
         pass
 
     def get_positions(self, piece: Piece, board: Board ):
-
         positions = []
-
         for i in range(len(Piece.PIECES[piece.type])):
             piece.rotation = i
 
@@ -170,7 +188,7 @@ class Bot:
 
         while queue:
             cur = queue.pop()
-            print(cur)
+            #print(cur)
             if( not piece.can_move_2( board, cur ) ): 
                 positions.append( cur )
             for neighbor in self.get_neighbors( piece, board, cur[0], cur[1], cur[2] ):
@@ -181,14 +199,55 @@ class Bot:
                 if rotation not in visited:
                     queue.append( rotation )
                     visited.add( rotation  )
-            print(queue)
+            #print(queue)
 
         return positions
         
     
 
-    def place_piece( self, piece, board, position ):
-        pass
+    def place_piece(self, cur: Piece, board: Board, position):
+        """
+        Places a piece on the board at the given position.
+        Assumes `position` is a tuple (x, y, rotation).
+        """
+
+        print(position)
+
+        x, y, rotation = position
+        cur.x, cur.y, cur.rotation = x, y, rotation
+        cur.piece = Piece.PIECES[cur.type][cur.rotation]
+
+
+        for row_idx, row in enumerate(cur.piece):
+            for col_idx, block in enumerate(row):
+                if block:
+                    print( cur.y + row_idx, cur.x + col_idx )
+                    board.grid[cur.y + row_idx][cur.x + col_idx] = 1  # Mark the grid as filled
+
+
+    def remove_piece(self, cur: Piece, board: Board, position):
+        """
+        Removes a piece from the board at the given position.
+        Assumes `position` is a tuple (x, y, rotation).
+        """
+        x, y, rotation = position
+        cur.x, cur.y, cur.rotation = x, y, rotation
+        cur.piece = Piece.PIECES[cur.type][cur.rotation]
+
+
+        for row_idx, row in enumerate(cur.piece):
+            for col_idx, block in enumerate(row):
+                if block:
+                    board.grid[cur.y + row_idx][cur.x + col_idx] = 0
+
+
+    def print_board(self, board: Board):
+        """
+        Prints the current board state with '#' for filled cells and '.' for empty cells.
+        """
+        for row in board.grid:
+            print("".join("#" if cell == 1 else "O" if cell == 2 else "." for cell in row))
+        print("\n" + "-" * 10)  
 
 def test():
     a = Bot( 2 )
