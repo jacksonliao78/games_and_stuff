@@ -56,14 +56,20 @@ class Piece:
         self.rotation = position[2]
         self.x = position[0]
         self.y = position[1]
+        self.piece = Piece.PIECES[self.type][self.rotation]
+
         if self.can_move( board ):
             self.rotation = old_rotation
             self.x = old_x
             self.y = old_y
+            self.piece = Piece.PIECES[self.type][self.rotation]
+
             return True
         self.rotation = old_rotation
         self.x = old_x
         self.y = old_y
+        self.piece = Piece.PIECES[self.type][self.rotation]
+
         return False
 
     def move(self, dx, dy, board):
@@ -126,14 +132,20 @@ class Piece:
         self.rotation = rotation
         self.x = x
         self.y = y
-        if board.is_valid_position(self) and not self.can_move(board): #add second requirement for peice to stop
+
+        self.piece = Piece.PIECES[self.type][self.rotation]
+        #have to change piece.piece to incorporate the rotation dumbass
+        if board.is_valid_position(self): #add second requirement for peice to stop
             self.x = old_x
             self.y = old_y
             self.rotation = old_rotation
+            self.piece = Piece.PIECES[self.type][self.rotation]
             return True
         self.x = old_x
         self.y = old_y
         self.rotation = old_rotation
+        self.piece = Piece.PIECES[self.type][self.rotation]
+
         return False        
     
     def get_lowest(self, board):

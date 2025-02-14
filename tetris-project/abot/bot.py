@@ -5,6 +5,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from game.board import Board
 from game.pieces import Piece
+from game.main import Game
 from collections import deque
 
 
@@ -65,7 +66,9 @@ class Bot:
     def upstack(self, board, piece, queue):
         vals = []
         for position in self.can_access(piece, board):
-            self.eval_move( position )
+            vals.append(self.eval_move( position ), position)
+        
+        return max(vals)
 
 
     def quad(self, board: Board):
@@ -89,6 +92,10 @@ class Bot:
                 curr = i
             if consecutive >= 4 and i + 1 == board.height or board.grid[i + 1][curr_hole] == 1:
                 return curr
+            
+    def cleared_lines( self, board: Board):
+        return sum( all( row ) for row in board.grid )
+
 
     def board_spikiness( self, board: Board ):
 
@@ -121,15 +128,32 @@ class Bot:
 
         return total
 
-    def eval_move(self, piece: Piece, board: Board):
+    def eval_move(self, piece: Piece, board: Board, position):
 
-        val = 0
-        pass
+        copy = board.copy()
+
+        self.place_piece(piece, copy, position)
+
+        agg_height = self.stack_heights(copy)
+        holes = self.get_total_holes(copy)
+        bumpiness = self.board_spikiness(copy)
+        line_clears = copy.get_line_clears()  # Implement function to check cleared lines
+        well_depth = self.well_depth(copy)
+        blocked_well = self.blocked_well(copy)
+
+        val = (
+        self.weights["aggregate_height"] * agg_height +
+        self.weights["holes"] * holes +
+        self.weights["bumpiness"] * bumpiness +
+        self.weights["line_clears"] * line_clears +
+        self.weights["well_depth"] * well_depth +
+        self.weights["blocked_well"] * blocked_well )
+
+        self.remove_piece(piece, copy, position)
+        
+        return val
 
     
-    def eval_move(self, piece: Piece, board: Board):
-        val = 0
-        pass
 
     def get_positions(self, piece: Piece, board: Board ):
         positions = []
@@ -158,16 +182,7 @@ class Bot:
 
         positions = []
 
-        #use bfs to find possible places? probably better than get_positions
-        
         return self.bfs_positions( positions, cur, piece, board, visited)
-
-
-        #if piece.can_move( board )
-
-      
-    
-        # use rotations / slimmest side? i.e. straight I then rotate long way
 
     def get_neighbors( self, piece: Piece, board: Board, x, y, rotation ):
         directions = [(0, 1), (1, 0), (-1, 0)]
@@ -188,7 +203,7 @@ class Bot:
 
         while queue:
             cur = queue.pop()
-            #print(cur)
+            print(cur)
             if( not piece.can_move_2( board, cur ) ): 
                 positions.append( cur )
             for neighbor in self.get_neighbors( piece, board, cur[0], cur[1], cur[2] ):
@@ -248,6 +263,12 @@ class Bot:
         for row in board.grid:
             print("".join("#" if cell == 1 else "O" if cell == 2 else "." for cell in row))
         print("\n" + "-" * 10)  
+
+
+    def main(self):
+
+        game = Game()
+        pass
 
 def test():
     a = Bot( 2 )
