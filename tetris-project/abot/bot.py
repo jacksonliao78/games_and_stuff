@@ -21,12 +21,13 @@ class Bot:
     def __init__(self, speed_cap):
         self.speed_cap = speed_cap
         self.weights = {
-            "aggregate_height": -0.5,
+            "height": -0.5,
             "holes": -1.0,
             "bumpiness": -0.4,
             "line_clears": 1.5,
             "well_depth": 0.8,  
             "blocked_well": -2.0,  
+            "ds_prio": 2.0
         }
 
 
@@ -41,18 +42,20 @@ class Bot:
             total += highest
         return total / board.width
 
-    def evaluate_board(self, board: Board, piece: Piece, queue):
+    def make_move(self, board: Board, piece: Piece, queue):
 
         if piece.type == 0:
             pos = self.quad( board )
             if pos == 1:
-                self.upstack()
+                self.stack()
             
 
         if( self.stack_heights( board ) > 15 ):
-            self.downstack()
+            self.stack( board, piece, queue, True)
+
+            #prioritize clearing lines if ds? include in genetic algo
         else:
-            self.upstack()
+            self.stack( board, piece, queue, False )
         
         #figure out how to see how tall the stack is 
 
@@ -60,13 +63,15 @@ class Bot:
 
     
 
-    def downstack(self, board, piece, queue):
-        vals = []
 
-    def upstack(self, board, piece, queue):
+
+    def stack(self, board, piece, queue, ds):
+
+        #could implement lookahead in future
+
         vals = []
         for position in self.can_access(piece, board):
-            vals.append(self.eval_move( position ), position)
+            vals.append( (self.eval_move( piece, board, position, ds ), position ) )
         
         return max(vals)
 
@@ -128,7 +133,7 @@ class Bot:
 
         return total
 
-    def eval_move(self, piece: Piece, board: Board, position):
+    def eval_move(self, piece: Piece, board: Board, position, ds):
 
         copy = board.copy()
 
@@ -142,7 +147,7 @@ class Bot:
         blocked_well = self.blocked_well(copy)
 
         val = (
-        self.weights["aggregate_height"] * agg_height +
+        self.weights["height"] * agg_height * self.weights["ds_prio"] if ds else self.weights["height"] * agg_height +
         self.weights["holes"] * holes +
         self.weights["bumpiness"] * bumpiness +
         self.weights["line_clears"] * line_clears +

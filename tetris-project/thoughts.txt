@@ -23,5 +23,4 @@ count holes in board, pits maybe? figure out how to weigh the nodes
 probably a few other factors?
 implement place piece and remove piece (this one for testing mainly)
 probably remove the second can_move to consolidate methods
-
-IMPORTANT FIX VALIDPOSITION _ NEED IT TO TEST IF MOVE IS POSSIBLE NOT IF VALID lol
+make board 21 higher, so when pieces spawn at x = 0 they have 1 block to fall, 

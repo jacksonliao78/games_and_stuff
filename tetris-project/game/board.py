@@ -93,7 +93,7 @@ class Board:
 
     def draw_grid(self, surface, board_width, board_height, offset):
         for x in range(0, board_width * GRID_SIZE, GRID_SIZE):
-            for y in range(0, board_height * GRID_SIZE, GRID_SIZE):
+            for y in range(GRID_SIZE, board_height * GRID_SIZE, GRID_SIZE):
                 rect = pygame.Rect(x + offset, y, GRID_SIZE, GRID_SIZE)
                 pygame.draw.rect(surface, WHITE, rect, 1)            
 

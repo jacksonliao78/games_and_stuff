@@ -10,7 +10,7 @@ from pieces import Piece
 from queue import Queue
 from hold import Hold
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 630
 GRID_SIZE = 30  
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -32,12 +32,12 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Initialize game components
-        self.board = Board(300 // GRID_SIZE, 600 // GRID_SIZE)
+        self.board = Board(300 // GRID_SIZE, 630 // GRID_SIZE)
         self.queue = Queue(400)
         self.hold = Hold(200)
 
         self.can_hold = True
-        self.current_tetromino = Piece(300 // GRID_SIZE // 2, 0, self.queue.get_piece(), 250)
+        self.current_tetromino = self.spawn_tetromino()
         self.keys_held = {pygame.K_LEFT: False, pygame.K_RIGHT: False, pygame.K_DOWN: False}
         self.key_last_pressed = {key: 0 for key in self.keys_held}
 
@@ -53,6 +53,9 @@ class Game:
         self.previous_position = (self.current_tetromino.x, self.current_tetromino.y)
 
         self.running = True
+
+    def spawn_tetromino(self):
+        return Piece( 300 // GRID_SIZE // 2 - 1, 0, self.queue.get_piece(), 250)
 
     def handle_events(self):
        
@@ -74,7 +77,7 @@ class Game:
                     if( self.can_hold ):
                         self.current_tetromino = self.hold.hold(self.current_tetromino)
                         if self.current_tetromino is None:
-                            self.current_tetromino = Piece(300 // GRID_SIZE // 2, 0, self.queue.get_piece(), 250)
+                            self.current_tetromino = self.spawn_tetromino()
                         self.can_hold = False
                     
             elif event.type == pygame.KEYUP:
@@ -111,7 +114,7 @@ class Game:
                 self.board.lock_piece(self.current_tetromino)
                 self.board.clear_lines()
                 self.can_hold = True
-                self.current_tetromino = Piece(300 // GRID_SIZE // 2, 0, self.queue.get_piece(), 250)
+                self.current_tetromino = self.spawn_tetromino()
                 self.lock_timer = 0
         else:
             self.lock_timer = 0  # Reset the lock timer if the position changes
@@ -119,7 +122,7 @@ class Game:
         self.previous_position = (self.current_tetromino.x, self.current_tetromino.y)
 
     def check_topout(self):
-        pass
+        return self.board.is_valid_position(self.current_tetromino) and not self.current_tetromino.can_move( self.board ) and self.current_tetromino.y <=  1
     
     
     def draw_game(self):
@@ -143,12 +146,13 @@ class Game:
             if( pygame.time.get_ticks() - start_time >= self.DURATION ):
                 self.running = False
 
-            print(pygame.time.get_ticks() - start_time)
+            #print(pygame.time.get_ticks() - start_time)
             self.handle_events()
             self.handle_continuous_movement()
             self.handle_locking()
             self.board.gravity( self.current_tetromino )
-            self.check_topout()
+            if( self.check_topout() ):
+                self.running = False
             self.draw_game()
             self.clock.tick(60)
 
