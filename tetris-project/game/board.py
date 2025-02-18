@@ -41,7 +41,7 @@ class Board:
                 if block:
                     x = piece.x + col_idx
                     y = piece.y + row_idx
-                    if x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] != 0:
+                    if x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] != 0 :
                         return False
         return True
 
@@ -58,15 +58,18 @@ class Board:
     def clear_lines(self):
         lines = 0
         new_grid = []
+        new_color_grid = [] #aa
 
-        for row in self.grid:  
-            if all(row):
+        for i in range(len(self.grid)):  
+            if all(self.grid[i]):
                 lines += 1         
             else:
-                new_grid.append(row)
+                new_grid.append(self.grid[i])
+                new_color_grid.append(self.color_grid[i])
 
         for _ in range(lines):
             new_grid.insert(0, [0] * self.width)
+            new_color_grid.insert(0, [0] * self.width)
 
         if( lines != 0 ):
             self.combo += 1
@@ -77,6 +80,7 @@ class Board:
         self.lines += lines
         self.update_level()
         self.grid = new_grid
+        self.color_grid = new_color_grid
 
     def draw(self, surface, offset):
         for y, row in enumerate(self.color_grid):
@@ -135,6 +139,8 @@ class Board:
             self.gravity_frame = 0
             piece.move(0, 1, self)
 
+    def get_score(self):
+        return self.score
 
 def test():
     board = Board(SCREEN_WIDTH, SCREEN_HEIGHT)

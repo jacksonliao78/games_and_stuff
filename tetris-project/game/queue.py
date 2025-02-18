@@ -4,8 +4,9 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pygame
-from constants import GRID_SIZE, SCREEN_WIDTH, WHITE, BLUE  # Import constants
-from pieces import Piece
+import random
+from game.constants import GRID_SIZE, SCREEN_WIDTH, WHITE, BLUE  # Import constants
+from game.pieces import Piece
 
 class Queue:
     def __init__(self, offset):
@@ -19,7 +20,9 @@ class Queue:
     def generate_bag(self, times):
         self.bag = []
         for _ in range(times):
-            self.bag.extend(range(7))
+            new_bag = list(range(7))
+            random.shuffle(new_bag)
+            self.bag.extend(new_bag)
 
     def get_piece(self):
         if len(self.bag) == 0:

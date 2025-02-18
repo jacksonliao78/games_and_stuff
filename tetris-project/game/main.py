@@ -5,10 +5,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pygame
 from pygame.locals import *
-from board import Board
-from pieces import Piece
-from queue import Queue
-from hold import Hold
+from game.board import Board
+from game.pieces import Piece
+from game.queue import Queue
+from game.hold import Hold
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 630
 GRID_SIZE = 30  
@@ -35,6 +35,7 @@ class Game:
         self.board = Board(300 // GRID_SIZE, 630 // GRID_SIZE)
         self.queue = Queue(400)
         self.hold = Hold(200)
+        self.score = 0
 
         self.can_hold = True
         self.current_tetromino = self.spawn_tetromino()
@@ -50,12 +51,13 @@ class Game:
 
 
         # Track positions
-        self.previous_position = (self.current_tetromino.x, self.current_tetromino.y)
+        self.rotation_count = 0
+        self.previous_position = (self.current_tetromino.x, self.current_tetromino.y, self.current_tetromino.rotation)
 
         self.running = True
 
     def spawn_tetromino(self):
-        return Piece( 300 // GRID_SIZE // 2 - 1, 0, self.queue.get_piece(), 250)
+        return Piece( 300 // GRID_SIZE // 2 - 2, 0, self.queue.get_piece(), 250)
 
     def handle_events(self):
        
@@ -102,7 +104,10 @@ class Game:
 
 
     def handle_locking(self):
-        current_position = (self.current_tetromino.x, self.current_tetromino.y)
+
+
+
+        current_position = (self.current_tetromino.x, self.current_tetromino.y, self.current_tetromino.rotation)
         if current_position == self.previous_position:  # If position hasn't changed
          
             if self.lock_timer == 0:  # Start the lock timer
@@ -113,13 +118,14 @@ class Game:
                 self.current_tetromino.stop()
                 self.board.lock_piece(self.current_tetromino)
                 self.board.clear_lines()
+                self.score = self.board.get_score()
                 self.can_hold = True
                 self.current_tetromino = self.spawn_tetromino()
                 self.lock_timer = 0
         else:
             self.lock_timer = 0  # Reset the lock timer if the position changes
 
-        self.previous_position = (self.current_tetromino.x, self.current_tetromino.y)
+        self.previous_position = (self.current_tetromino.x, self.current_tetromino.y, self.current_tetromino.rotation)
 
     def check_topout(self):
         return self.board.is_valid_position(self.current_tetromino) and not self.current_tetromino.can_move( self.board ) and self.current_tetromino.y <=  1
@@ -162,6 +168,44 @@ class Game:
 
 
         pygame.quit()
+
+    #to visualize bot playing in real time
+    def run_bot(self, bot):
+
+        speed = Game.DURATION / bot.speed_cap
+
+        
+
+        start_time = pygame.time.get_ticks()
+        piece_time = pygame.time.get_ticks()
+
+        while self.running:
+            current_time = pygame.time.get_ticks()
+
+            if( current_time - start_time >= self.DURATION ):
+                self.running = False
+
+            if( current_time - piece_time >= speed ):
+                bot.make_move( self )
+                self.board.clear_lines()
+                self.score = self.board.get_score()
+                self.current_tetromino = self.spawn_tetromino()
+                piece_time = pygame.time.get_ticks()
+
+                #draw things probably
+
+
+    #for ai purposes
+    def simulate_game(self, bot):
+        for _ in range( int(bot.speed_cap * Game.DURATION / 1000) ):
+            bot.make_move( self )
+            self.board.clear_lines()
+            self.score = self.board.get_score()
+            self.current_tetromino = self.spawn_tetromino()
+
+        #return score here or smth
+
+    
 
 
 def main():

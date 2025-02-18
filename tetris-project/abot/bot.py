@@ -18,7 +18,7 @@ from collections import deque
 
 class Bot:
 
-    def __init__(self, speed_cap):
+    def __init__(self, speed_cap, weights):
         self.speed_cap = speed_cap
         self.weights = {
             "height": -0.5,
@@ -29,6 +29,7 @@ class Bot:
             "blocked_well": -2.0,  
             "ds_prio": 2.0
         }
+
 
 
     """ if avg height is above 15, call downstack, else call upstack"""
@@ -42,29 +43,6 @@ class Bot:
             total += highest
         return total / board.width
 
-    def make_move(self, board: Board, piece: Piece, queue):
-
-        if piece.type == 0:
-            pos = self.quad( board )
-            if pos == 1:
-                self.stack()
-            
-
-        if( self.stack_heights( board ) > 15 ):
-            self.stack( board, piece, queue, True)
-
-            #prioritize clearing lines if ds? include in genetic algo
-        else:
-            self.stack( board, piece, queue, False )
-        
-        #figure out how to see how tall the stack is 
-
-        pass
-
-    
-
-
-
     def stack(self, board, piece, queue, ds):
 
         #could implement lookahead in future
@@ -76,6 +54,7 @@ class Bot:
         return max(vals)
 
 
+    #possibly remove this lol
     def quad(self, board: Board):
         curr = -1
         curr_hole = -1
@@ -134,6 +113,10 @@ class Bot:
         return total
 
     def eval_move(self, piece: Piece, board: Board, position, ds):
+        """
+        Evaluates a given move, considering a variety of weighted factors. Higher 
+        values = better move.
+        """
 
         copy = board.copy()
 
@@ -142,7 +125,7 @@ class Bot:
         agg_height = self.stack_heights(copy)
         holes = self.get_total_holes(copy)
         bumpiness = self.board_spikiness(copy)
-        line_clears = copy.get_line_clears()  # Implement function to check cleared lines
+        line_clears = self.cleared_lines(copy)  # Implement function to check cleared lines
         well_depth = self.well_depth(copy)
         blocked_well = self.blocked_well(copy)
 
@@ -176,8 +159,11 @@ class Bot:
         return positions
 
     def can_access( self, piece: Piece, board: Board):
+        """
+        Setup for the bfs
+        """
         
-        x = int(board.width / 2)
+        x = int( board.width / 2 - 2) 
         y = 0
         rotation = 0
         current = (x, y, rotation)
@@ -190,6 +176,9 @@ class Bot:
         return self.bfs_positions( positions, cur, piece, board, visited)
 
     def get_neighbors( self, piece: Piece, board: Board, x, y, rotation ):
+        """
+        Returns the valid neighbors of the current position (left, right, and down)
+        """
         directions = [(0, 1), (1, 0), (-1, 0)]
         neighbors = []
         for direction in directions:
@@ -198,6 +187,9 @@ class Bot:
         return neighbors
 
     def get_rotations( self, piece: Piece, board: Board, x, y, rotation ):
+        """
+        Returns the valid rotations of a piece, given current x and y
+        """
         rotations = []
         for i in range( len(Piece.PIECES[ piece.type ])):
             if piece.check_pos( board, x, y, i ) :
@@ -205,10 +197,13 @@ class Bot:
         return rotations
 
     def bfs_positions( self, positions, queue: deque, piece: Piece, board: Board, visited: set):
+        """
+        Uses a breadth first search (BFS) algorithm to find every reachable position 
+        on the current board, given a piece. 
+        """
 
         while queue:
             cur = queue.pop()
-            print(cur)
             if( not piece.can_move_2( board, cur ) ): 
                 positions.append( cur )
             for neighbor in self.get_neighbors( piece, board, cur[0], cur[1], cur[2] ):
@@ -269,14 +264,25 @@ class Bot:
             print("".join("#" if cell == 1 else "O" if cell == 2 else "." for cell in row))
         print("\n" + "-" * 10)  
 
+    def make_move(self, game: Game):
+        """
+        Makes a move based on what the evaluation function finds most suitable
+        given the board state.
+        """
 
+        if( self.stack_heights( game.board ) > 15 ):
+            self.stack( game.board, game.current_tetromino, game.queue, True)
+
+            #prioritize clearing lines if ds? include in genetic algo
+        else:
+            self.stack( game.board, game.current_tetromino, game.queue, False )
+        
     def main(self):
 
-        game = Game()
         pass
 
 def test():
-    a = Bot( 2 )
+    a = Bot( 2, [] )
     board = Board( 20, 20 )
 
     print(a.stack_heights( board ))

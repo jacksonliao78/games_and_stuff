@@ -17,10 +17,20 @@ implement timer - 2 min
 redo lock delay - 0.5s that resets with rotation/move, max 15 rotations on a level
 
 #todo
-fix rotaiton system (add srs)
-add board visualizer for bot to test methods
-count holes in board, pits maybe? figure out how to weigh the nodes
-probably a few other factors?
-implement place piece and remove piece (this one for testing mainly)
+
+
 probably remove the second can_move to consolidate methods
-make board 21 higher, so when pieces spawn at x = 0 they have 1 block to fall, 
+max 15 rotations once hit bottom yk?
+#smoother movement? dunno how to really do that 
+ghost piece
+restart option/lil menu
+score board
+
+#todo bot
+probably a few other factors?
+genetic algorithm of some sort
+using hold/queue to get better searches (essentially placing a piece in every position, then bfs again, and again )
+
+
+could use dictionary to track piece positions that have been visited,
+given that the bottom is good
