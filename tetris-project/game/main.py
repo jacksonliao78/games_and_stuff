@@ -9,6 +9,7 @@ from game.board import Board
 from game.pieces import Piece
 from game.queue import Queue
 from game.hold import Hold
+from abot.bot import Bot
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 630
 GRID_SIZE = 30  
@@ -180,6 +181,7 @@ class Game:
         piece_time = pygame.time.get_ticks()
 
         while self.running:
+           
             current_time = pygame.time.get_ticks()
 
             if( current_time - start_time >= self.DURATION ):
@@ -191,6 +193,9 @@ class Game:
                 self.score = self.board.get_score()
                 self.current_tetromino = self.spawn_tetromino()
                 piece_time = pygame.time.get_ticks()
+            self.draw_game()
+            self.clock.tick(60)
+            print("skibii")
 
                 #draw things probably
 
@@ -210,7 +215,9 @@ class Game:
 
 def main():
     game = Game()
-    game.run()
+    bot = Bot(2, [])
+    #game.run()
+    game.run_bot(bot)
 
 
 if __name__ == "__main__":

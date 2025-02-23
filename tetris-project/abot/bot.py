@@ -5,7 +5,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from game.board import Board
 from game.pieces import Piece
-from game.main import Game
 from collections import deque
 
 
@@ -264,7 +263,7 @@ class Bot:
             print("".join("#" if cell == 1 else "O" if cell == 2 else "." for cell in row))
         print("\n" + "-" * 10)  
 
-    def make_move(self, game: Game):
+    def make_move(self, game):
         """
         Makes a move based on what the evaluation function finds most suitable
         given the board state.
