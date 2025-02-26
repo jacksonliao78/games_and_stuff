@@ -173,14 +173,16 @@ class Game:
     #to visualize bot playing in real time
     def run_bot(self, bot):
 
-        speed = Game.DURATION / bot.speed_cap
+        speed = Game.DURATION / ( bot.speed_cap * 100 )
 
-        
+        print(speed)
 
         start_time = pygame.time.get_ticks()
         piece_time = pygame.time.get_ticks()
 
         while self.running:
+
+            self.handle_events()
            
             current_time = pygame.time.get_ticks()
 
@@ -189,13 +191,17 @@ class Game:
 
             if( current_time - piece_time >= speed ):
                 bot.make_move( self )
+                bot.print_board( self.board )
+                print("move made")
                 self.board.clear_lines()
                 self.score = self.board.get_score()
                 self.current_tetromino = self.spawn_tetromino()
+                if( self.check_topout() ):
+                    self.running = False
                 piece_time = pygame.time.get_ticks()
             self.draw_game()
             self.clock.tick(60)
-            print("skibii")
+            #print("skibii")
 
                 #draw things probably
 
@@ -207,6 +213,9 @@ class Game:
             self.board.clear_lines()
             self.score = self.board.get_score()
             self.current_tetromino = self.spawn_tetromino()
+            if( self.check_topout() ):
+                return self.score
+        return self.score
 
         #return score here or smth
 
@@ -215,7 +224,7 @@ class Game:
 
 def main():
     game = Game()
-    bot = Bot(2, [])
+    bot = Bot(2, [0, 0, 0, 0, 0, 0, 0])
     #game.run()
     game.run_bot(bot)
 

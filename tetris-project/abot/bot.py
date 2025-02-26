@@ -20,13 +20,13 @@ class Bot:
     def __init__(self, speed_cap, weights):
         self.speed_cap = speed_cap
         self.weights = {
-            "height": -0.5,
-            "holes": -1.0,
-            "bumpiness": -0.4,
-            "line_clears": 1.5,
-            "well_depth": 0.8,  
-            "blocked_well": -2.0,  
-            "ds_prio": 2.0
+            "height": weights[0],
+            "holes": weights[1],
+            "bumpiness": weights[2],
+            "line_clears": weights[3],
+            "well_depth": weights[4],  
+            "blocked_well": weights[5],  
+            "ds_prio": weights[6]
         }
 
 
@@ -38,7 +38,7 @@ class Bot:
             highest = 0
             for j in range(board.height):
                 if board.grid[j][i] != 0:
-                    highest = max(highest, i)
+                    highest = max(highest, j)
             total += highest
         return total / board.width
 
@@ -89,7 +89,7 @@ class Bot:
         for i in range( board.width ):
             for j in range( board.height ):
                 if board.grid[j][i] == 1:
-                    heights[i] == board.height - j
+                    heights[i] = board.height - j
                     break
         
         for i in range(1, len(heights)):
@@ -97,7 +97,7 @@ class Bot:
 
         return total
 
-    def open_well( self, board ):
+    def well_depth( self, board ):
         well_open = all(board.grid[row][9] == 0 for row in range(20))
         return 100 if well_open else -100
 
@@ -105,8 +105,8 @@ class Bot:
         total = 0
 
         for i in range(board.width):
-            for j in range(board.height - 1, 0, -1):
-                if( board.grid[j + 1][i] == 1 and board.grid[j + 1][i] == 0):
+            for j in range(board.height - 2, 0, -1):
+                if( board.grid[j][i] == 1 and board.grid[j + 1][i] == 0):
                     total += 1
 
         return total
@@ -117,7 +117,7 @@ class Bot:
         values = better move.
         """
 
-        copy = board.copy()
+        copy = board
 
         self.place_piece(piece, copy, position)
 
@@ -126,7 +126,7 @@ class Bot:
         bumpiness = self.board_spikiness(copy)
         line_clears = self.cleared_lines(copy)  # Implement function to check cleared lines
         well_depth = self.well_depth(copy)
-        blocked_well = self.blocked_well(copy)
+        blocked_well = 0 #self.blocked_well(copy)
 
         val = (
         self.weights["height"] * agg_height * self.weights["ds_prio"] if ds else self.weights["height"] * agg_height +
@@ -217,7 +217,12 @@ class Bot:
 
         return positions
         
-    
+    def actually_place_piece( self, cur: Piece, board: Board, position):
+        x, y, rotation = position
+        cur.x, cur.y, cur.rotation = x, y, rotation
+        cur.piece = Piece.PIECES[cur.type][cur.rotation]
+
+        board.lock_piece(cur)
 
     def place_piece(self, cur: Piece, board: Board, position):
         """
@@ -235,7 +240,7 @@ class Bot:
         for row_idx, row in enumerate(cur.piece):
             for col_idx, block in enumerate(row):
                 if block:
-                    print( cur.y + row_idx, cur.x + col_idx )
+                    #print( cur.y + row_idx, cur.x + col_idx )
                     board.grid[cur.y + row_idx][cur.x + col_idx] = 1  # Mark the grid as filled
 
 
@@ -270,12 +275,13 @@ class Bot:
         """
 
         if( self.stack_heights( game.board ) > 15 ):
-            self.stack( game.board, game.current_tetromino, game.queue, True)
-
+            val, position = self.stack( game.board, game.current_tetromino, game.queue, True)
+            self.actually_place_piece(game.current_tetromino, game.board, position)
             #prioritize clearing lines if ds? include in genetic algo
         else:
-            self.stack( game.board, game.current_tetromino, game.queue, False )
-        
+            val, position = self.stack( game.board, game.current_tetromino, game.queue, False )
+            self.actually_place_piece(game.current_tetromino, game.board, position)
+
     def main(self):
 
         pass
