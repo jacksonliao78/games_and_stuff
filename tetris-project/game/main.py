@@ -129,7 +129,7 @@ class Game:
         self.previous_position = (self.current_tetromino.x, self.current_tetromino.y, self.current_tetromino.rotation)
 
     def check_topout(self):
-        return self.board.is_valid_position(self.current_tetromino) and not self.current_tetromino.can_move( self.board ) and self.current_tetromino.y <=  1
+        return not self.board.is_valid_position(self.current_tetromino) and not self.current_tetromino.can_move( self.board ) and self.current_tetromino.y <=  1
     
     
     def draw_game(self):
@@ -224,7 +224,9 @@ class Game:
 
 def main():
     game = Game()
-    bot = Bot(2, [0, 0, 0, 0, 0, 0, 0])
+    
+    weights = [ -0.6460856708097908, -0.7438680313063725, -0.16241082335092175, -0.3894047332115014, 1.034599119943385, -0.0706335058108325, 0, 0, 0 ] #  -0.0706335058108325  -0.46617836785448064    0.6233213406339039
+    bot = Bot(2, weights)
     #game.run()
     game.run_bot(bot)
 

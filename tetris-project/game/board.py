@@ -24,6 +24,7 @@ class Board:
         self.grid = [[0 for _ in range(width)] for _ in range(height)]
         self.color_grid = [[0 for _ in range(width)] for _ in range(height)]
 
+        self.placed_pieces = 0
         self.score = 0
 
         self.level = 0
@@ -54,6 +55,8 @@ class Board:
                     self.grid[y][x] = 1
                     self.color_grid[y][x] = (1, piece.color)
         self.gravity_frame = 0
+        self.placed_pieces += 1
+        self.score += 5
 
     def clear_lines(self):
         lines = 0

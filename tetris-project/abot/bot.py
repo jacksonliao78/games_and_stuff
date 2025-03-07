@@ -21,12 +21,13 @@ class Bot:
         self.speed_cap = speed_cap
         self.weights = {
             "height": weights[0],
-            "holes": weights[1],
-            "bumpiness": weights[2],
-            "line_clears": weights[3],
-            "well_depth": weights[4],  
-            "blocked_well": weights[5],  
-            "ds_prio": weights[6]
+            "max_height": weights[1],
+            "holes": weights[2],
+            "bumpiness": weights[3],
+            "line_clears": weights[4],
+            "well_depth": weights[5],  
+            "blocked_well": weights[6],  
+            "ds_prio": weights[7]
         }
 
 
@@ -51,6 +52,16 @@ class Bot:
             vals.append( (self.eval_move( piece, board, position, ds ), position ) )
         
         return max(vals)
+
+    def max_height(self, board):
+        heights = []
+        for i in range(board.width):
+            highest = 0
+            for j in range(board.height):
+                if board.grid[j][i] != 0:
+                    highest = max(highest, j)
+            heights.append(j)
+        return max(heights)
 
 
     #possibly remove this lol
@@ -99,17 +110,21 @@ class Bot:
 
     def well_depth( self, board ):
         well_open = all(board.grid[row][9] == 0 for row in range(20))
-        return 100 if well_open else -100
-
-    def get_total_holes( self, board: Board ):
+        return 10 if well_open else -10
+    
+    def get_total_holes(self, board: Board):
         total = 0
-
         for i in range(board.width):
-            for j in range(board.height - 2, 0, -1):
-                if( board.grid[j][i] == 1 and board.grid[j + 1][i] == 0):
+            found_block = False
+            for j in range(board.height):
+                if board.grid[j][i] == 1:
+                    found_block = True
+                elif found_block and board.grid[j][i] == 0:
+                    found_block = False
                     total += 1
-
         return total
+    
+
 
     def eval_move(self, piece: Piece, board: Board, position, ds):
         """
@@ -122,6 +137,7 @@ class Bot:
         self.place_piece(piece, copy, position)
 
         agg_height = self.stack_heights(copy)
+        max_height = self.max_height(copy)
         holes = self.get_total_holes(copy)
         bumpiness = self.board_spikiness(copy)
         line_clears = self.cleared_lines(copy)  # Implement function to check cleared lines
@@ -130,6 +146,7 @@ class Bot:
 
         val = (
         self.weights["height"] * agg_height * self.weights["ds_prio"] if ds else self.weights["height"] * agg_height +
+        self.weights["max_height"] * max_height +
         self.weights["holes"] * holes +
         self.weights["bumpiness"] * bumpiness +
         self.weights["line_clears"] * line_clears +
@@ -230,7 +247,6 @@ class Bot:
         Assumes `position` is a tuple (x, y, rotation).
         """
 
-        print(position)
 
         x, y, rotation = position
         cur.x, cur.y, cur.rotation = x, y, rotation
@@ -273,6 +289,7 @@ class Bot:
         Makes a move based on what the evaluation function finds most suitable
         given the board state.
         """
+        
 
         if( self.stack_heights( game.board ) > 15 ):
             val, position = self.stack( game.board, game.current_tetromino, game.queue, True)
