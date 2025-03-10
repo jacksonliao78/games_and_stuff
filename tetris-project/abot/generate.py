@@ -8,12 +8,14 @@ def main( generations ):
     print('hi')
     gen = generate_initial( 100, 7 )
 
+    count = 0
     for _ in range(generations):
+        print(count)
         gen = get_generation( gen )
+        count += 1
 
-    for bot in simulate_generation(gen)[:2]:
-        print(bot.weights)
-    
+    for bot in gen[:5]:
+        print( bot.weights )    
     
 
 
@@ -83,4 +85,4 @@ def generate_initial(pop_size, num_weights):
 
 if __name__ == "__main__":
     print("b")
-    main( 1000 )
+    main( 10 )

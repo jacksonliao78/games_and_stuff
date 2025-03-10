@@ -1,5 +1,6 @@
 import sys
 import os
+import csv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -143,6 +144,12 @@ class Game:
         self.board.draw_score(self.screen, 10, 200)
         pygame.display.flip()
 
+    def write_score(self):
+        pass
+
+    def get_score(self):
+        pass
+
     def run(self):
 
         start_time = pygame.time.get_ticks()
@@ -225,8 +232,8 @@ class Game:
 def main():
     game = Game()
     
-    weights = [ -0.6460856708097908, -0.7438680313063725, -0.16241082335092175, -0.3894047332115014, 1.034599119943385, -0.0706335058108325, 0, 0, 0 ] #  -0.0706335058108325  -0.46617836785448064    0.6233213406339039
-    bot = Bot(2, weights)
+    weights = [-0.7156849084207725, -0.46410597390900077, -0.8182796982481585, -0.25240742804407745, 0.4105997617287197, 0.31782852240290693, -0.3220757737205828, 0.4807079329940822]
+    bot = Bot(10, weights)
     #game.run()
     game.run_bot(bot)
 

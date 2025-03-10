@@ -29,6 +29,11 @@ class Queue:
             self.generate_bag(2)
         self.queue.append(self.bag.pop())
         return self.queue.pop(0)
+    
+    def check_piece(self, num):
+        if num >= len(self.queue):
+            return None
+        return self.queue[num]
 
     def draw(self, surface):
         font = pygame.font.Font(None, 24)
