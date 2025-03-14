@@ -139,18 +139,41 @@ class Game:
         self.queue.draw(self.screen)
         board_offset = 250
         self.board.draw(self.screen, board_offset)
+        self.current_tetromino.get_lowest(self.board)
         self.current_tetromino.draw(self.screen)
         self.board.draw_grid(self.screen, self.board.width, self.board.height, board_offset)
         self.board.draw_score(self.screen, 10, 200)
         pygame.display.flip()
 
-    def write_score(self):
-        pass
+    def write_score(self, score, isHuman, filename="scores.csv"):
+        exists = os.path.isfile(filename)
 
-    def get_score(self):
-        pass
+        with open(filename, mode='a', newline="") as f:
+            writer = csv.writer(f)
+            if not exists:
+                writer.writerow(["Game ID", "Human/Bot", "Score"])
+            id = sum( 1 for _ in open(filename) )
+            writer.writerow([ id, "Human" if isHuman else "Bot", score])
+        
+        
+
+    def get_scores(self, filename="scores.csv"):
+        exists = os.path.isfile(filename)
+        scores = []
+
+        if not exists:
+            return scores
+        with open(filename, mode='r') as f:
+            reader = csv.DictReader(f)
+            for line in reader:
+                scores.append( {"Game ID": int(line["Game ID"]), "Human/Bot": line["Human/Bot"], "Score": int(line["Score"])})
+        return scores
+        
+        
 
     def run(self):
+
+        #starting screen or button or something?? dunno?? display high sores?? dunno
 
         start_time = pygame.time.get_ticks()
         
@@ -172,8 +195,10 @@ class Game:
 
 
         #some kinda stopping mechanism or restart mechanism i guess
-        
+        self.write_score( self.board.get_score(), True )
 
+
+        #restart mechanism here 
 
         pygame.quit()
 
@@ -212,7 +237,7 @@ class Game:
 
                 #draw things probably
 
-
+        self.write_score( self.board.get_score(), False)
     #for ai purposes
     def simulate_game(self, bot):
         for _ in range( int(bot.speed_cap * Game.DURATION / 1000) ):
@@ -234,8 +259,8 @@ def main():
     
     weights = [-0.7156849084207725, -0.46410597390900077, -0.8182796982481585, -0.25240742804407745, 0.4105997617287197, 0.31782852240290693, -0.3220757737205828, 0.4807079329940822]
     bot = Bot(10, weights)
-    #game.run()
-    game.run_bot(bot)
+    game.run()
+    #game.run_bot(bot)
 
 
 if __name__ == "__main__":

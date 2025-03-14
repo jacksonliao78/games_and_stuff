@@ -18,19 +18,14 @@ redo lock delay - 0.5s that resets with rotation/move, max 15 rotations on a lev
 
 #todo
 
+essentially just quality of life and features atp
+apaprently there's a delay between hard+drop and next piece spawn. interesting?
 
 probably remove the second can_move to consolidate methods
 max 15 rotations once hit bottom yk?
-#smoother movement? dunno how to really do that 
+#smoother movement? dunno how to really do that (faster side to side probably)
+fix rotations
 ghost piece
 restart option/lil menu
 score board
 
-#todo bot
-probably a few other factors?
-genetic algorithm of some sort
-using hold/queue to get better searches (essentially placing a piece in every position, then bfs again, and again )
-
-
-could use dictionary to track piece positions that have been visited,
-given that the bottom is good

@@ -134,6 +134,7 @@ class Piece:
         self.piece = Piece.PIECES[type][self.rotation]
         self.moving = True
         self.offset = offset
+        self.lowest = 0
 
     def can_move( self, board):
         self.y += 1
@@ -167,6 +168,7 @@ class Piece:
         return False
 
     def move(self, dx, dy, board):
+        self.get_lowest(board)
         if self.is_moving( board ):
             self.x += dx
             self.y += dy
@@ -217,7 +219,16 @@ class Piece:
                     )
                     pygame.draw.rect(surface, self.color, rect)
                     pygame.draw.rect(surface, WHITE, rect, 1)  # Add an outline
-
+        for row_idx, row in enumerate(self.piece):
+            for col_idx, block in enumerate(row):
+                if block:
+                    rect = pygame.Rect(
+                        (self.x + col_idx) * GRID_SIZE + self.offset,
+                        (self.lowest + row_idx) * GRID_SIZE,
+                        GRID_SIZE, GRID_SIZE
+                    )
+                    pygame.draw.rect(surface, (*self.color, 40) ,rect) #need a lighter version ot
+                    pygame.draw.rect(surface, WHITE, rect, 1)
 
 
     def hard_drop(self, board):
@@ -257,7 +268,12 @@ class Piece:
 
         return False        
     
-    def get_lowest(self, board):
-        pass
+    def get_lowest(self, board): #useful for ghost piece
+        old_y = self.y
+        while(board.is_valid_position(self)):
+            self.y += 1
+        self.y -= 1
+        self.lowest = self.y
+        self.y = old_y
 
-    
+        #change this at dome point    
