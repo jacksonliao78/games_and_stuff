@@ -121,10 +121,6 @@ class Piece:
     },
     ]
 
-    
-
-
-
     def __init__(self, x, y, type, offset):
         self.x = x
         self.y = y
@@ -178,8 +174,6 @@ class Piece:
                 return False
             return True
         return False
-    
-    
 
     def rotate(self, num, board):
         if(self.moving):
@@ -236,7 +230,7 @@ class Piece:
             self.y += 1
         self.y -= 1
         self.stop()
-        
+
 
     def stop(self):
         self.moving = False
