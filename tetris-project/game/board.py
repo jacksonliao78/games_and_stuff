@@ -96,7 +96,6 @@ class Board:
                         GRID_SIZE
                     )
                     pygame.draw.rect(surface, block[1], rect)
-                    pygame.draw.rect(surface, WHITE, rect, 1)  # Outline
 
     def draw_grid(self, surface, board_width, board_height, offset):
         for x in range(0, board_width * GRID_SIZE, GRID_SIZE):

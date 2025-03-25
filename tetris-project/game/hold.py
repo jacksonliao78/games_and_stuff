@@ -16,6 +16,8 @@ class Hold:
     def hold(self, piece):
         if self.hold_piece != None:
             temp = self.hold_piece
+            temp.x, temp.y, temp.rotation, temp.moving = 3, 0, 0, True
+            temp.piece = Piece.PIECES[temp.type][temp.rotation]
             self.hold_piece = piece
             return temp
         self.hold_piece = piece

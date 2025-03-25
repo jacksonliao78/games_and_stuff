@@ -51,7 +51,6 @@ def test_stack_heights():
     bot = Bot(2)
     board = Board(10, 20)
 
-    print("\n--- Testing Stack Heights ---")
     for name, state in test_avg_heights.items():
         set_board_state(board, state)
         avg_height = bot.stack_heights(board)
