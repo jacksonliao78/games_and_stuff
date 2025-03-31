@@ -274,7 +274,7 @@ class Game:
         with open(filename, mode='r') as f:
             reader = csv.DictReader(f)
             for line in reader:
-                scores.append( {"Game ID": int(line["Game ID"]), "Human/Bot": line["Human/Bot"], "Score": int(line["Score"])})
+                scores.append( {"Game ID": int(line["Game ID"]), "Human/Bot": line["Human/Bot"], "Name": line["Name"], "Score": int(line["Score"])})
         scores.sort( key=lambda x: x["Score"], reverse=True)
         return scores[:num]
         
@@ -283,7 +283,7 @@ class Game:
     def run(self):
 
         #starting screen or button or something?? dunno?? display high sores?? dunno
-        #self.start_screen()
+        self.start_screen()
         start_time = pygame.time.get_ticks()
         
         while self.running:
@@ -310,7 +310,7 @@ class Game:
 
 
         #some kinda stopping mechanism or restart mechanism i guess
-        #self.write_score( self.board.get_score(), True )
+        self.write_score( self.board.get_score(), True )
 
 
         #restart mechanism here 
@@ -349,7 +349,7 @@ class Game:
             #print("skibii")
 
                 #draw things probably
-
+        print(self.board.pps())
         self.write_score( self.board.get_score(), False)
     #for ai purposes
     def simulate_game(self, bot):

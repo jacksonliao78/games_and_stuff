@@ -32,6 +32,7 @@ class Board:
 
         self.lines = 0
         self.combo = 0
+
         
     
 
@@ -143,6 +144,10 @@ class Board:
 
     def get_score(self):
         return self.score
+
+    def pps(self):
+        #2 minute pps
+        return 120 / self.placed_pieces
 
 def test():
     board = Board(SCREEN_WIDTH, SCREEN_HEIGHT)
