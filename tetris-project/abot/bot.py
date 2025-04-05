@@ -8,15 +8,10 @@ from game.pieces import Piece
 from collections import deque
 
 
-#TODO - everything ->
-#start with quad spam?
-
-#with i piece should check if quad is possible...
-
-
 
 class Bot:
 
+    """ Creates a new bot, with a speed cap (max pieces per second) and array of weights for the evaluation function"""
     def __init__(self, speed_cap, weights):
         self.speed_cap = speed_cap
         self.weights = {
@@ -32,7 +27,7 @@ class Bot:
 
 
 
-    """ if avg height is above 15, call downstack, else call upstack"""
+    """ If avg height is above 15, call downstack, else call upstack """
     def stack_heights(self, board: Board):
         total = 0
         for col in range(board.width):
@@ -44,9 +39,8 @@ class Bot:
             total += ( board.height - highest )
         return total / board.width
 
+    """ Returns the best move given the list of all possible moves in a position """
     def stack(self, board, piece, queue, ds):
-
-        #could implement lookahead in future
 
         vals = []
         for position in self.can_access(piece, board):
@@ -54,6 +48,7 @@ class Bot:
         
         return max(vals)
 
+    """ Returns the highest column height of a given board state """
     def max_height(self, board):
         heights = []
         for col in range(board.width):
@@ -66,6 +61,7 @@ class Bot:
             heights.append(highest)
         return max(heights)
 
+    """ Returns the flatness of the board - the lower the standard deviation of heights, the better """
     def flatness_score(self, board):
         heights = []
         for col in range(board.width):
@@ -85,8 +81,6 @@ class Bot:
         # Lower standard deviation = flatter surface = better score
         return -1 * (variance ** 0.5)
     
-    
-
     #possibly remove this lol
     def quad(self, board: Board):
         curr = -1
@@ -109,15 +103,15 @@ class Bot:
                 curr = row
             if consecutive >= 4 and row + 1 == board.height or board.grid[row + 1][curr_hole] == 1:
                 return curr
-            
+
+    """ Returns the number of cleared lines of a move"""     
     def cleared_lines( self, board: Board):
         return sum( all( row ) for row in board.grid )
 
-
+    """ """
     def board_spikiness( self, board: Board ):
 
         total = 0
-
         heights = [0] * board.width
 
         for col in range( board.width ):
