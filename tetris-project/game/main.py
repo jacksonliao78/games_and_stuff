@@ -12,6 +12,7 @@ from game.queue import Queue
 from game.hold import Hold
 from abot.bot import Bot
 
+""" Constants """
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 630
 GRID_SIZE = 30  
 WHITE = (255, 255, 255)
@@ -26,6 +27,7 @@ class Game:
 
     DURATION = 120 * 1000
 
+    """ Initiates a new game """
     def __init__(self):
         pygame.init()
         pygame.font.init()
@@ -61,9 +63,11 @@ class Game:
 
         self.running = True
 
+    """ Spawns a new tetris piece """
     def spawn_tetromino(self):
         return Piece( 300 // GRID_SIZE // 2 - 2, 0, self.queue.get_piece(), 250)
 
+    """ Handles all the player events """
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -101,8 +105,10 @@ class Game:
                     self.key_press_time[event.key] = 0
                     self.key_repeat_time[event.key] = 0
 
+    
+    """Handles movement for held keys using DAS and ARR."""
     def handle_continuous_movement(self):
-        """Handles movement for held keys using DAS and ARR."""
+
         current_time = pygame.time.get_ticks()
         
         for key, is_held in self.keys_held.items():
@@ -120,6 +126,7 @@ class Game:
                         
                         self.key_repeat_time[key] = current_time + self.arr_delay
 
+    """ Handles locking of pieces """
     def handle_locking(self):
 
         current_position = (self.current_tetromino.x, self.current_tetromino.y, self.current_tetromino.rotation)
@@ -128,7 +135,6 @@ class Game:
             if self.lock_timer == 0:  # Start the lock timer
                 self.lock_timer = pygame.time.get_ticks()
 
-           
             elif ( not self.current_tetromino.is_moving(self.board) or not self.current_tetromino.can_move( self.board ) and pygame.time.get_ticks() - self.lock_timer >= self.lock_delay ):
                 self.current_tetromino.stop()
                 self.board.lock_piece(self.current_tetromino)
@@ -142,9 +148,11 @@ class Game:
 
         self.previous_position = (self.current_tetromino.x, self.current_tetromino.y, self.current_tetromino.rotation)
 
+    """ Checks if the current piece is topped out of bounds """
     def check_topout(self):
         return not self.board.is_valid_position(self.current_tetromino) and not self.current_tetromino.can_move( self.board ) and self.current_tetromino.y <=  1
     
+    """ Draws the initial screen, with the top five scores """
     def start_screen(self):
         font = pygame.font.Font(None, 36)
         title_font = pygame.font.Font(None, 48)
@@ -180,7 +188,7 @@ class Game:
                     if start_button.collidepoint(event.pos):
                         return  
 
-    
+    """ Draws all the game elements """
     def draw_game(self):
         self.screen.fill(BLACK)
         self.hold.draw(self.screen)
@@ -193,7 +201,7 @@ class Game:
         self.board.draw_score(self.screen, 10, 200)
         pygame.display.flip()
 
-
+    """ Draws the end screen, with a redo button and option to enter a name for the score """
     def end_screen(self):
     
         font = pygame.font.Font(None, 36)
@@ -249,10 +257,12 @@ class Game:
                     else:
                         text += event.unicode 
 
+    """ Restarts the game by reinitializing itself"""
     def restart_game(self):
-        self.__init__()  # Reinitialize the game
+        self.__init__() 
         self.run()
 
+    """ Writes the game's score to a file with all the others """
     def write_score(self, score, isHuman, name="None", filename="scores.csv"):
         exists = os.path.isfile(filename)
 
@@ -263,8 +273,7 @@ class Game:
             id = sum( 1 for _ in open(filename) )
             writer.writerow([ id, "Human" if isHuman else "Bot", name, score])
         
-        
-
+    """ Returns the top N scores """
     def get_scores(self, num, filename="scores.csv"):
         exists = os.path.isfile(filename)
         scores = []
@@ -278,16 +287,13 @@ class Game:
         scores.sort( key=lambda x: x["Score"], reverse=True)
         return scores[:num]
         
-        
-
+    """ Runs the actual game """
     def run(self):
 
-        #starting screen or button or something?? dunno?? display high sores?? dunno
         self.start_screen()
         start_time = pygame.time.get_ticks()
         
         while self.running:
-
             
             if( pygame.time.get_ticks() - start_time >= self.DURATION ):
                 self.running = False
@@ -295,7 +301,6 @@ class Game:
                 self.write_score(self.board.get_score(), True, name)  # Save name
                 self.restart_game()
 
-            #print(pygame.time.get_ticks() - start_time)
             self.handle_events()
             self.handle_continuous_movement()
             self.handle_locking()
@@ -308,21 +313,13 @@ class Game:
             self.draw_game()
             self.clock.tick(60)
 
-
-        #some kinda stopping mechanism or restart mechanism i guess
         self.write_score( self.board.get_score(), True )
-
-
-        #restart mechanism here 
-
         pygame.quit()
 
-    #to visualize bot playing in real time
+    """ Runs the game for a bot """
     def run_bot(self, bot):
 
         speed = Game.DURATION / ( bot.speed_cap * 100 )
-
-        print(speed)
 
         start_time = pygame.time.get_ticks()
         piece_time = pygame.time.get_ticks()
@@ -330,7 +327,6 @@ class Game:
         while self.running:
 
             self.handle_events()
-           
             current_time = pygame.time.get_ticks()
 
             if( current_time - start_time >= self.DURATION ):
@@ -346,12 +342,11 @@ class Game:
                 piece_time = pygame.time.get_ticks()
             self.draw_game()
             self.clock.tick(60)
-            #print("skibii")
 
-                #draw things probably
         print(self.board.pps())
         self.write_score( self.board.get_score(), False)
-    #for ai purposes
+
+    """ Simulates a game for the genetic algorithm, returning the score """
     def simulate_game(self, bot):
         for _ in range( int(bot.speed_cap * Game.DURATION / 1000) ):
             bot.make_move( self )
@@ -362,11 +357,7 @@ class Game:
                 return self.score
         return self.score
 
-        #return score here or smth
-
-    
-
-
+""" Main function tht runs the whole program """
 def main():
     game = Game()
     

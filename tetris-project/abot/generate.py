@@ -2,10 +2,10 @@
 import random
 from bot import Bot
 from game.main import Game
-#use genetic algorithms to find best weights for a tetris bot, given the attributes it's looking for
 
+
+""" Function that returns the top best 5 bot weights after a certain number of generations """
 def main( generations ):
-    print('hi')
     gen = generate_initial( 100, 7 )
 
     count = 0
@@ -17,8 +17,7 @@ def main( generations ):
     for bot in gen[:5]:
         print( bot.weights )    
     
-
-
+""" Creates a new generation given the top 10 individuals from the current one """
 def get_generation( gen ):
     newgen = [ indiv for indiv in simulate_generation( gen )]
 
@@ -28,7 +27,7 @@ def get_generation( gen ):
 
     return newgen
     
-
+""" Changes weights slightly, simulating mutation (small chance) """
 def mutation( bot ):
     rate = 0.05
     
@@ -38,15 +37,16 @@ def mutation( bot ):
 
     return bot
 
+""" Creates a new bot from two parents, by averging their weights """
 def crossover( p1, p2 ):
     weights = []
-
 
     for key in p1.weights:
         weights.append( ( p1.weights[key] + p2.weights[key] ) / 2 ) 
 
     return Bot(2, weights)
 
+""" Simulates a generation of bots, returning the top ten """
 def simulate_generation( bots ):
     vals = []
     for bot in bots:
@@ -55,13 +55,12 @@ def simulate_generation( bots ):
     
     return [val[1] for val in vals[:10]]
     
-
+""" Simulates a two minute blitz game for a bot, returning its score """
 def fitness( bot ):
     game = Game()
     return game.simulate_game( bot )
 
-
-
+""" Randomly generates the initial population """
 def generate_initial(pop_size, num_weights):
     population = []
     

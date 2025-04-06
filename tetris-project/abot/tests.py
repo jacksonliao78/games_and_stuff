@@ -38,16 +38,14 @@ test_avg_heights = {
     ],
 }
 
-
+""" Sets the board state for testing """
 def set_board_state(board: Board, state):
-    """Sets the board state for testing."""
     if len(state) != 20 or any(len(row) != 10 for row in state):
         raise ValueError("State must be a 20x10 grid.")
     board.grid = [row[:] for row in state]
 
-
+""" Tests stack height calculations """
 def test_stack_heights():
-    """Tests stack height calculations."""
     bot = Bot(2)
     board = Board(10, 20)
 
@@ -56,9 +54,8 @@ def test_stack_heights():
         avg_height = bot.stack_heights(board)
         print(f"Test case '{name}': Average stack height = {avg_height:.2f}")
 
-
+""" Tests piece placements """
 def test_positions():
-    """Tests piece placements."""
     bot = Bot(2)
     board = Board(10, 20)
 
@@ -66,10 +63,8 @@ def test_positions():
     board.grid[17][4] = 1
     board.grid[16][5] = 1
 
-
-
+""" Tests BFS-based reachable positions """
 def test_bfs():
-    """Tests BFS-based reachable positions."""
     bot = Bot(2)
     board = Board(10, 20)
 
@@ -78,16 +73,11 @@ def test_bfs():
     board.grid[17][4] = 2
     board.grid[16][5] = 2
 
-    
-
-    #x-y 4,18 4,17, 5,16
     piece = Piece( 5, 0, 0, 0)
 
     print(bot.get_positions(piece, board))
-    # Place an "I" piece at the top
     for i in range(1):
         piece = Piece( 5, 0, i, 0)
-        print("skibidi bruh")
         for pos in sorted(bot.can_access( piece, board )):
             
             bot.place_piece( piece, board, pos )
@@ -95,11 +85,6 @@ def test_bfs():
             bot.remove_piece( piece, board, pos )
             
         print("-" * 30)
-
-
-    # Run BFS to find accessible positions
-
-
 
 if __name__ == "__main__":
     test_stack_heights()

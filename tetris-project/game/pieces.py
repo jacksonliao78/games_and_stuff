@@ -10,6 +10,7 @@ from game.constants import GRID_SIZE, WHITE, RED  # Import constants
 
 class Piece:
 
+    """ Each piece, and their rotations """
     PIECES = [
         # I
         [ [[1, 1, 1, 1]], [[1], [1], [1], [1]], ],
@@ -29,6 +30,8 @@ class Piece:
 
     
     COLORS = [ ( 0, 180, 240 ), ( 240, 220, 0 ), ( 170, 0, 170 ), ( 0, 128, 0 ), (255, 0, 0), ( 0, 0, 255 ),  ( 255, 128, 0 )]
+    
+    """ Rotation system kicks for each piece """
     KICKS = [
     {
         (0, 1): [(0, 0), (-2, 0), (1, 0), (-2, -1), (1, 2)],
@@ -121,6 +124,7 @@ class Piece:
     },
     ]
 
+    """ Initilizes a piece, given a type """
     def __init__(self, x, y, type, offset):
         self.x = x
         self.y = y
@@ -132,6 +136,7 @@ class Piece:
         self.offset = offset
         self.lowest = 0
 
+    """ Checks if a piece can move downwards """
     def can_move( self, board):
         self.y += 1
         if board.is_valid_position( self ):
@@ -140,6 +145,7 @@ class Piece:
         self.y -= 1
         return False
 
+    """ Checks if a piece can move downwards at a specific position """
     def can_move_2( self, board, position ):
         old_rotation = self.rotation
         old_x = self.x
@@ -163,6 +169,7 @@ class Piece:
 
         return False
 
+    """ Moves a piece down once if possible """
     def move(self, dx, dy, board):
         self.get_lowest(board)
         if self.is_moving( board ):
@@ -175,20 +182,17 @@ class Piece:
             return True
         return False
 
+    """ Attempts to rotate a piece using the kick system or normal rotation """
     def rotate(self, num, board):
         if(self.moving):
             old_rotation = self.rotation
             self.rotation = (self.rotation + num) % len(Piece.PIECES[self.type])
             self.piece = Piece.PIECES[self.type][self.rotation]
         
-          
             if board.is_valid_position(self):
                 return
-            
-            #print(Piece.KICKS[self.type])
-            
+        
             kicks = Piece.KICKS[self.type][(old_rotation, self.rotation)]
-
 
             for dx, dy in kicks:
                 self.x += dx
@@ -201,7 +205,7 @@ class Piece:
             self.rotation = old_rotation
             self.piece = Piece.PIECES[self.type][self.rotation]
 
-
+    """ Draws the piece, and a ghost version at the lowest point """
     def draw(self, surface):
         for row_idx, row in enumerate(self.piece):
             for col_idx, block in enumerate(row):
@@ -224,21 +228,22 @@ class Piece:
                     pygame.draw.rect(surface, (*self.color, 40) ,rect) #need a lighter version ot
                     pygame.draw.rect(surface, WHITE, rect, 1)
 
-
+    """ Moves the piece down as far as possible """
     def hard_drop(self, board):
         while(board.is_valid_position(self)):
             self.y += 1
         self.y -= 1
         self.stop()
 
-
+    """ Stops piece movement """
     def stop(self):
         self.moving = False
 
+    """ Returns whether the piece is moving """
     def is_moving(self, board):
         return self.moving and board.is_valid_position(self)
     
-    #lowkey same as can_move but for ease of use have this
+    """ Essentially can_move_2 but with the position unpacked """
     def check_pos( self, board, x, y, rotation ):
         old_rotation = self.rotation
         old_x = self.x
@@ -248,7 +253,6 @@ class Piece:
         self.y = y
 
         self.piece = Piece.PIECES[self.type][self.rotation]
-        #have to change piece.piece to incorporate the rotation dumbass
         if board.is_valid_position(self): #add second requirement for peice to stop
             self.x = old_x
             self.y = old_y
@@ -262,12 +266,11 @@ class Piece:
 
         return False        
     
-    def get_lowest(self, board): #useful for ghost piece
+    """ Finds the lowest valid positon for a piece"""
+    def get_lowest(self, board): 
         old_y = self.y
         while(board.is_valid_position(self)):
             self.y += 1
         self.y -= 1
         self.lowest = self.y
         self.y = old_y
-
-        #change this at dome point    

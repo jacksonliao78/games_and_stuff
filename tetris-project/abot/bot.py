@@ -80,35 +80,12 @@ class Bot:
     
         # Lower standard deviation = flatter surface = better score
         return -1 * (variance ** 0.5)
-    
-    #possibly remove this lol
-    def quad(self, board: Board):
-        curr = -1
-        curr_hole = -1
-        consecutive = 0
- 
-        for col in range(board.width):
-            tot = 0
-            hole = -1
-            for row in range(board.height):
-                if board.grid[row][col] == 1:
-                    tot += 1
-                else:
-                    hole = row
-            if tot == board.width - 1:
-                if curr - row == 1 and curr_hole == hole:
-                    consecutive += 1
-                else:
-                    consecutive = 1
-                curr = row
-            if consecutive >= 4 and row + 1 == board.height or board.grid[row + 1][curr_hole] == 1:
-                return curr
 
-    """ Returns the number of cleared lines of a move"""     
+    """ Returns the number of cleared lines of a move """     
     def cleared_lines( self, board: Board):
         return sum( all( row ) for row in board.grid )
 
-    """ """
+    """ Calculates the difference in column heights for all columns """
     def board_spikiness( self, board: Board ):
 
         total = 0
@@ -125,9 +102,9 @@ class Bot:
 
         return total
 
+    """ Prioritizes building a "well" in the rightmost column """
     def well_depth(self, board):
-    
-    # Calculate heights of all columns with proper indexing
+
         heights = []
         for col in range(board.width):
             highest = board.height
@@ -137,20 +114,17 @@ class Bot:
                     break
             heights.append(board.height - highest)
     
-    # Check if adjacent columns are higher (good for well)
         adjacent_diff = heights[8] - heights[9]
     
-    
-    # Calculate well depth (deeper is better)
         well_depth = max(0, adjacent_diff)
     
-    # Calculate if well is properly maintained (ideally 2+ blocks higher on sides)
-        well_quality = well_depth if well_depth >= 2 else -5
+        return well_depth if well_depth >= 2 else -5
     
-        return well_quality
-    
+    """ Calculates the amount of holes in a board state - a hole being a space with a block above it """
     def get_total_holes(self, board: Board):
+
         total = 0
+
         for col in range(board.width):
             found_block = False
             for row in range(board.height):
@@ -159,16 +133,13 @@ class Bot:
                 elif found_block and board.grid[row][col] == 0:
                     found_block = False
                     total += 1
+
         return total
     
-
-
+    """ Evaluates a given move, considering a variety of weighted factors. 
+    Higher values = better move. """
     def eval_move(self, piece: Piece, board: Board, position, ds):
-        """
-        Evaluates a given move, considering a variety of weighted factors. Higher 
-        values = better move.
-        """
-
+       
         copy = board
 
         self.place_piece(piece, copy, position)
@@ -194,27 +165,8 @@ class Bot:
         
         return val
 
-    
-
-    def get_positions(self, piece: Piece, board: Board ):
-        positions = []
-        for i in range(len(Piece.PIECES[piece.type])):
-            piece.rotation = i
-
-            for x in range( -2, board.width):
-                piece.x = x
-                piece.y = 0
-
-                while piece.y >= board.height:
-                    if( board.is_valid_position( piece ) and board.grid[x][piece.y + 1] == 1 or piece.y == board.height ):
-                        positions.append( x, piece.y, i)
-                
-        return positions
-
+    """ BFS setup """
     def can_access( self, piece: Piece, board: Board):
-        """
-        Setup for the bfs
-        """
         
         x = int( board.width / 2 - 2) 
         y = 0
@@ -228,10 +180,8 @@ class Bot:
 
         return self.bfs_positions( positions, cur, piece, board, visited)
 
+    """ Returns valid neighbors of current position """
     def get_neighbors( self, piece: Piece, board: Board, x, y, rotation ):
-        """
-        Returns the valid neighbors of the current position (left, right, and down)
-        """
         directions = [(0, 1), (1, 0), (-1, 0)]
         neighbors = []
         for direction in directions:
@@ -239,21 +189,16 @@ class Bot:
                 neighbors.append((x + direction[0], y + direction[1], rotation))
         return neighbors
 
-    def get_rotations( self, piece: Piece, board: Board, x, y, rotation ):
-        """
-        Returns the valid rotations of a piece, given current x and y
-        """
+    """ Returns valid rotations of piece from a given position """
+    def get_rotations( self, piece: Piece, board: Board, x, y, rotation ): 
         rotations = []
         for i in range( len(Piece.PIECES[ piece.type ])):
             if piece.check_pos( board, x, y, i ) :
                 rotations.append( (x, y, i) )
         return rotations
 
+    """ Uses a breadth first search (BFS) algorithm to find every reachable position on the current board """
     def bfs_positions( self, positions, queue: deque, piece: Piece, board: Board, visited: set):
-        """
-        Uses a breadth first search (BFS) algorithm to find every reachable position 
-        on the current board, given a piece. 
-        """
 
         while queue:
             cur = queue.pop()
@@ -267,10 +212,10 @@ class Bot:
                 if rotation not in visited:
                     queue.append( rotation )
                     visited.add( rotation  )
-            #print(queue)
 
         return positions
         
+    """ Places the piece in a position, permanently """
     def actually_place_piece( self, cur: Piece, board: Board, position):
         x, y, rotation = position
         cur.x, cur.y, cur.rotation = x, y, rotation
@@ -278,72 +223,55 @@ class Bot:
 
         board.lock_piece(cur)
 
+    """ Places the piece in a position, temporarily """
     def place_piece(self, cur: Piece, board: Board, position):
-        """
-        Places a piece on the board at the given position.
-        Assumes `position` is a tuple (x, y, rotation).
-        """
-
 
         x, y, rotation = position
         cur.x, cur.y, cur.rotation = x, y, rotation
         cur.piece = Piece.PIECES[cur.type][cur.rotation]
-
 
         for row_idx, row in enumerate(cur.piece):
             for col_idx, block in enumerate(row):
                 if block:
-                    #print( cur.y + row_idx, cur.x + col_idx )
                     board.grid[cur.y + row_idx][cur.x + col_idx] = 1  # Mark the grid as filled
 
-
+    """ Removes a piece from a poisition, reversing place_piece """
     def remove_piece(self, cur: Piece, board: Board, position):
-        """
-        Removes a piece from the board at the given position.
-        Assumes `position` is a tuple (x, y, rotation).
-        """
+        
         x, y, rotation = position
         cur.x, cur.y, cur.rotation = x, y, rotation
         cur.piece = Piece.PIECES[cur.type][cur.rotation]
-
 
         for row_idx, row in enumerate(cur.piece):
             for col_idx, block in enumerate(row):
                 if block:
                     board.grid[cur.y + row_idx][cur.x + col_idx] = 0
 
-
+    """ Prints the current board state with '#' for filled cells and '.' for empty cells """
     def print_board(self, board: Board):
-        """
-        Prints the current board state with '#' for filled cells and '.' for empty cells.
-        """
         for row in board.grid:
             print("".join("#" if cell == 1 else "O" if cell == 2 else "." for cell in row))
         print("\n" + "-" * 10)  
 
+    """ If hold, finds the best move with the hold piece. If that move is better than the 
+    best move with the current piece, use the hold piece, else use the current piece. """
     def check_hold(self, game):
         is_downstack = self.stack_heights(game.board) > 15
         
         current_val, current_pos = self.stack(game.board, game.current_tetromino, game.queue, is_downstack)
         
         if game.hold.hold_piece is None:
-            #Piece( 300 // GRID_SIZE // 2 - 2, 0, self.queue.get_piece(), 250)
-            # yes I know this is messy
             second_piece = Piece( 10 // 2 - 2, 0, game.queue.check_piece(0), 250 )
             second_val, second_pos = self.stack(game.board, second_piece, game.queue, is_downstack)
             return second_val > current_val
             
-        
         hold_piece = game.hold.hold_piece
         hold_val, hold_pos = self.stack(game.board, hold_piece, game.queue, is_downstack)
         
         return hold_val > current_val
 
+    """ Makes a move based on what the evaluation function finds most suitable given the board state"""
     def make_move(self, game):
-        """
-        Makes a move based on what the evaluation function finds most suitable
-        given the board state.
-        """
         
         use_hold = self.check_hold(game)
         
@@ -363,16 +291,3 @@ class Bot:
         else:
             val, position = self.stack( game.board, game.current_tetromino, game.queue, False )
             self.actually_place_piece(game.current_tetromino, game.board, position)
-
-    def main(self):
-
-        pass
-
-def test():
-    a = Bot( 2, [] )
-    board = Board( 20, 20 )
-
-    print(a.stack_heights( board ))
-
-if __name__ == "__main__":
-    test()

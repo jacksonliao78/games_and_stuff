@@ -14,7 +14,7 @@ class Board:
     SCORES = [0, 100, 300, 500, 800]
     GRAVITIES = [60, 40, 30, 22, 18, 15, 12, 10, 8, 6, 4, 2, 1]
 
-
+    """ Genertes a board with a width and height """
     def __init__(self, width, height):
         self.LEVEL_LINES = [3 + 2 * i for i in range(20)]
         self.LEVEL_TOTALS = [sum(self.LEVEL_LINES[0: i]) for i in range(20)]
@@ -33,9 +33,7 @@ class Board:
         self.lines = 0
         self.combo = 0
 
-        
-    
-
+    """ Checks if the piece is in a valid position to stop """
     def is_valid_position(self, piece):
 
         for row_idx, row in enumerate(piece.piece):
@@ -47,6 +45,7 @@ class Board:
                         return False
         return True
 
+    """ Locks the piece in its current position """
     def lock_piece(self, piece: Piece):
         for row_idx, row in enumerate(piece.piece):
             for col_idx, block in enumerate(row):
@@ -59,6 +58,7 @@ class Board:
         self.placed_pieces += 1
         self.score += 5
 
+    """ Checks if lines can be cleared, and does if possible, adding to the score"""
     def clear_lines(self):
         lines = 0
         new_grid = []
@@ -86,6 +86,7 @@ class Board:
         self.grid = new_grid
         self.color_grid = new_color_grid
 
+    """ Draws the board """
     def draw(self, surface, offset):
         for y, row in enumerate(self.color_grid):
             for x, block in enumerate(row):
@@ -98,13 +99,14 @@ class Board:
                     )
                     pygame.draw.rect(surface, block[1], rect)
 
+    """ Draws the grid lines """
     def draw_grid(self, surface, board_width, board_height, offset):
         for x in range(0, board_width * GRID_SIZE, GRID_SIZE):
             for y in range(GRID_SIZE, board_height * GRID_SIZE, GRID_SIZE):
                 rect = pygame.Rect(x + offset, y, GRID_SIZE, GRID_SIZE)
                 pygame.draw.rect(surface, WHITE, rect, 1)            
 
-    
+    """ Draws the scoreboard, with combo, level and lines """
     def draw_score(self, surface, offset_x, offset_y):
         font = pygame.font.Font(None, 36)  
 
@@ -129,29 +131,26 @@ class Board:
         if combo_text:  
             surface.blit(combo_surface, combo_rect)
 
-
+    """ Updates the level based on current lines """
     def update_level(self):
         for i, lines in enumerate( self.LEVEL_TOTALS ):
             if self.lines > lines:
                 self.level = i
         
-
+    """ Simulates gravity, given what level its on """
     def gravity(self, piece: Piece):
         self.gravity_frame += 1
         if self.gravity_frame >= self.GRAVITIES[ self.level ]:
             self.gravity_frame = 0
             piece.move(0, 1, self)
 
+    """ Returns the current score """
     def get_score(self):
         return self.score
 
+    """ Returns the current pieces per second """
     def pps(self):
         #2 minute pps
         return 120 / self.placed_pieces
 
-def test():
-    board = Board(SCREEN_WIDTH, SCREEN_HEIGHT)
-    print(board.LEVEL_LINES)
-    print(board.LEVEL_TOTALS)
 
-#test()
