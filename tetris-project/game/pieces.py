@@ -124,7 +124,7 @@ class Piece:
     },
     ]
 
-    """ Initilizes a piece, given a type """
+    """ Initializes a piece, given a type """
     def __init__(self, x, y, type, offset):
         self.x = x
         self.y = y
@@ -169,7 +169,7 @@ class Piece:
 
         return False
 
-    """ Moves a piece down once if possible """
+    """ Moves a piece if possible """
     def move(self, dx, dy, board):
         self.get_lowest(board)
         if self.is_moving( board ):

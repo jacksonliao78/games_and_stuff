@@ -9,10 +9,12 @@ from game.pieces import Piece
 
 class Hold:
 
+    """ Initites hold piece as none """
     def __init__(self, offset):
         self.hold_piece = None
         self.offset = offset
 
+    """ Holds the current piece, returning the piece in hold if available """
     def hold(self, piece):
         if self.hold_piece != None:
             temp = self.hold_piece
@@ -23,6 +25,7 @@ class Hold:
         self.hold_piece = piece
         return None
 
+    """ Draws the hold piece, if possible """
     def draw(self, surface):
         font = pygame.font.Font(None, 24)
         text = font.render("Hold:", True, WHITE)

@@ -14,7 +14,7 @@ class Board:
     SCORES = [0, 100, 300, 500, 800]
     GRAVITIES = [60, 40, 30, 22, 18, 15, 12, 10, 8, 6, 4, 2, 1]
 
-    """ Genertes a board with a width and height """
+    """ Generates a board with a specified width and height """
     def __init__(self, width, height):
         self.LEVEL_LINES = [3 + 2 * i for i in range(20)]
         self.LEVEL_TOTALS = [sum(self.LEVEL_LINES[0: i]) for i in range(20)]
